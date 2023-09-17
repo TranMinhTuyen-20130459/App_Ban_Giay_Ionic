@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from "../services/product.service";
-import { ProductModel } from "../models/ProductModel";
+import { ProductModel } from "../models/product-model";
 import { IonicModule, LoadingController } from "@ionic/angular";
 import { BannerComponent } from './banner/banner.component';
 @Component({
