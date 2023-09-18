@@ -2,7 +2,7 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-const url_api_backend = "http://tmt010101ccna-001-site1.ftempurl.com/api/";
+const url_api_backend = "http://tmt010101ccna-001-site1.ftempurl.com/api";
 
 export const environment = {
   production: false,

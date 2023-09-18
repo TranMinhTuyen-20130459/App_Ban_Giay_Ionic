@@ -6,57 +6,62 @@
     <ion-title>Tìm kiếm</ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar
-      debounce="500"
-      color="light"
-      placeholder="Nhập tên sản phẩm..."
-    ></ion-searchbar>
+    <ion-searchbar  (ionChange)="search($event)" debounce="500" color="light" placeholder="Nhập tên sản phẩm..."></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-grid>
-    
+
+    <!-- Phần danh sách sản phẩm -->
     <ion-row>
-     <ion-col>
-        <!--
-        <ion-list *ngIf="filteredProducts.length > 0">
-          <ion-item *ngFor="let p of filteredProducts">
+      <ion-col>
+
+        <!-- Kiểm tra xem có sản phẩm nào trong danh sách "searchedProducts" hay không -->
+        <ion-list *ngIf="searchedProducts.length > 0">
+          <!-- Lặp qua danh sách các sản phẩm -->
+          <ion-item *ngFor="let p of searchedProducts">
+            <!-- Hiển thị hình ảnh sản phẩm -->
             <ion-thumbnail>
-              <ion-img [src]="p.images[0].src" alt="{{ p.name }}"></ion-img>
+              <ion-img *ngIf="p.list_images && p.list_images.length > 0" src="p.list_images[0].path_image" alt="kun"></ion-img>
             </ion-thumbnail>
             <ion-label>
-              <h4>{{ p.name }}</h4>
+              <!-- Hiển thị tên sản phẩm -->
+              <h4>{{p.name_product}}</h4>
               <ion-text>
-                <p>{{ p.price | currency:"INR" }}</p>
+                <!-- Hiển thị giá sản phẩm với định dạng tiền tệ VND -->
+                <p>{{p.listed_price | currency:"VND"}}</p>
               </ion-text>
             </ion-label>
           </ion-item>
-        </ion-list> -->
-
-        <!--SHOW THE SKELETON TEXT -->
-        <!-- <ion-list *ngIf="showSkeleton">
+        </ion-list>
+        
+        <!-- Hiển thị hiệu ứng skeleton loading khi danh sách sản phẩm đang được tải -->
+        <ion-list *ngIf="showSkeleton">
           <ion-item *ngFor="let d of [].constructor(5)">
             <ion-thumbnail>
-             <ion-skeleton-text animated></ion-skeleton-text>
+              <ion-skeleton-text animated></ion-skeleton-text>
             </ion-thumbnail>
             <ion-label>
+              <!-- Hiển thị text skeleton với chiều rộng 60% -->
               <h4><ion-skeleton-text animated style="width: 60%;"></ion-skeleton-text></h4>
               <ion-text>
+                <!-- Hiển thị text skeleton với chiều rộng 40% -->
                 <p><ion-skeleton-text animated style="width: 40%;"></ion-skeleton-text></p>
               </ion-text>
             </ion-label>
           </ion-item>
-        </ion-list> -->
+        </ion-list>
 
-        <!-- NO ITEMS FOUND -->
-        <!-- <ion-list *ngIf="filteredProducts.length<= 0 && touched" lines="none">
+        <!-- Hiển thị thông báo khi không có sản phẩm nào được tìm thấy -->
+        <ion-list *ngIf="searchedProducts.length == 0 && touched" lines="none">
           <ion-item>
             <ion-label>
-              <h3>No Products Found</h3>
+              <!-- Thông báo "No Products Found" -->
+              <h3>Không tìm thấy sản phẩm</h3>
             </ion-label>
           </ion-item>
-        </ion-list> -->
+        </ion-list>
 
       </ion-col>
     </ion-row>
