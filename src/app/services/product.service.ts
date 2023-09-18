@@ -14,7 +14,7 @@ export class ProductService {
 
   // Tìm kiếm sản phẩm dựa theo từ khóa do người dùng nhập vào
   SearchProducts(keyword: string): Observable<ProductModel[]> {
-    const params = { name: keyword, quantity: '5' };
+    const params = { name: keyword, quantity: '15' };
 
     return this.httpClient.get<any>(`${this.url}/product-shoes/ds-giay`, { params })
       .pipe(

@@ -30,6 +30,7 @@ export class SearchPage implements OnInit {
 
       // Gọi phương thức SearchProducts từ ProductService
       this.productService.SearchProducts(keyword).subscribe(
+      
         (products: ProductModel[]) => {
           // Lấy danh sách sản phẩm tìm kiếm được và gán vào searchedProducts
           this.searchedProducts = products;
