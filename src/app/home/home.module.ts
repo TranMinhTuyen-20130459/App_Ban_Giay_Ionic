@@ -13,6 +13,7 @@ import { HomePageRoutingModule } from './home-routing.module';
     IonicModule,
     ExploreContainerComponentModule,
     HomePageRoutingModule
-  ]
+  ],
+  declarations: []
 })
 export class HomePageModule {}

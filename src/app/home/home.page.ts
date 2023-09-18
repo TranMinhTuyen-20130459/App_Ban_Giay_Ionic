@@ -3,6 +3,7 @@ import { ProductService } from "../services/product.service";
 import { ProductModel } from "../models/product-model";
 import { IonicModule, LoadingController } from "@ionic/angular";
 import { BannerComponent } from './banner/banner.component';
+import { Router } from '@angular/router';
 @Component({
     selector: 'app-tab1',
     templateUrl: 'home.page.html',
@@ -11,14 +12,18 @@ import { BannerComponent } from './banner/banner.component';
     imports: [IonicModule, BannerComponent]
 })
 export class HomePage implements OnInit {
-    
+
     listArrayOfProducts: ProductModel[] = [];
     displayedList: ProductModel[] = [];
 
     constructor(private productService: ProductService,
-        private loadingController: LoadingController) {
+        private loadingController: LoadingController, private router: Router) {
     }
 
-    ngOnInit():void { }
+    navigateToSearch() {
+        this.router.navigate(['/search']);
+    }
+
+    ngOnInit(): void { }
 
 }
