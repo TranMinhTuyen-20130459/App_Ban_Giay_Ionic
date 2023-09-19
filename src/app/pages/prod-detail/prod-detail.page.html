@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button (click)="navigateToSearch()"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+   <!-- <ion-slides class="ion-padding" pager>
+     <ion-slide *ngFor="let i of product?.list_images">
+       <ion-img [src]="i?.path_image" alt="kun"></ion-img>
+     </ion-slide>
+   </ion-slides> -->
+
+   <div *ngIf="product && product.list_images.length > 0">
+    <swiper-container 
+      #swiper
+      [modules]="swiperModules"
+      [slidesPerView]="1.2"
+      [initialSlide]="1"
+      [centeredSlides]="true"
+      [autoplay]="true"
+      [spaceBetween]="20"
+      [pagination]="{clickable: true, dynamicBullets: true}">
+      <!-- effect="flip" -->
+      <swiper-slide *ngFor="let i of product?.list_images">
+        <img [src]="i?.path_image" alt="kun" />
+      </swiper-slide>
+    </swiper-container>
+  </div>
+
+  <ion-item-divider></ion-item-divider>
+
+  <ion-grid class="ion-no-padding">
+    <ion-row class="ion-no-padding">
+      <ion-col class="ion-no-padding">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              <h2>{{ product?.name_product }}</h2>
+            </ion-card-title>
+            <ion-card-subtitle>
+              <!-- <ion-chip *ngFor="let c of product?.categories" color="secondary">
+                {{ c?.name}}
+              </ion-chip> -->
+            </ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-label>
+              <p>Giá niêm yết: {{ product?.listed_price | currency:"VND" }}</p>
+              <ion-text>
+                <p>Giá khuyến mãi: {{ product?.promotional_price | currency:"VND" }}</p>
+              </ion-text>
+            </ion-label>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar style="padding: 0 10px;">
+    <ion-label>
+      <ion-button color="tertiary " expand="full" fill="solid">
+        Add To Cart
+      </ion-button>
+    </ion-label>
+  </ion-toolbar>
+</ion-footer>

@@ -6,7 +6,7 @@
     <ion-title>Tìm kiếm</ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar  (ionChange)="search($event)" debounce="500" color="light" placeholder="Nhập tên sản phẩm..."></ion-searchbar>
+    <ion-searchbar (ionChange)="search($event)" debounce="500" color="light" placeholder="Nhập tên sản phẩm..."></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
@@ -20,7 +20,11 @@
         <!-- Kiểm tra xem có sản phẩm nào trong danh sách "searchedProducts" hay không -->
         <ion-list *ngIf="searchedProducts.length > 0">
           <!-- Lặp qua danh sách các sản phẩm -->
-          <ion-item *ngFor="let p of searchedProducts">
+          <ion-item 
+          *ngFor="let p of searchedProducts"
+          (click)="loadingSpinner()"
+          routerLink="/search/prod-detail/{{ p.id_product }}"
+          >
             <!-- Hiển thị hình ảnh sản phẩm -->
             <ion-thumbnail>
               <ion-img *ngIf="p.list_images && p.list_images.length > 0" [src]="p.list_images[0]" alt="kun"></ion-img>

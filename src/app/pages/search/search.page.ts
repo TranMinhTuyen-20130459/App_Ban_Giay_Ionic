@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from "../../services/product.service";
 import { ProductModel } from "../../models/product-model";
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-search',
@@ -11,10 +12,11 @@ export class SearchPage implements OnInit {
 
   searchedProducts: ProductModel[] = [];
 
-  showSkeleton : boolean = false;
-  touched : boolean = false; 
+  showSkeleton: boolean = false;
+  touched: boolean = false;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService,
+    private loadingController: LoadingController) { }
 
   ngOnInit() {
   }
@@ -30,7 +32,7 @@ export class SearchPage implements OnInit {
 
       // Gọi phương thức SearchProducts từ ProductService
       this.productService.SearchProducts(keyword).subscribe(
-      
+
         (products: ProductModel[]) => {
           // Lấy danh sách sản phẩm tìm kiếm được và gán vào searchedProducts
           this.searchedProducts = products;
@@ -49,6 +51,16 @@ export class SearchPage implements OnInit {
       this.touched = true;
       this.showSkeleton = false;
     }
+  }
+
+  loadingSpinner() {
+    this.loadingController.create({
+      message: "Loading Details..",
+      animated: true,
+      spinner: "crescent",
+      backdropDismiss: false,
+      showBackdrop: true
+    }).then(el => el.present());
   }
 
 }
