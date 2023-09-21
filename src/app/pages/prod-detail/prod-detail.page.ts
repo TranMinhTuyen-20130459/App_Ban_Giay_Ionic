@@ -19,9 +19,6 @@ export class ProdDetailPage implements OnInit {
 
   selectedSize: SizeModel = { name_size: '', quantity_available: 0 };
 
-
-  
- 
   carts: CartItemModel[] = JSON.parse(localStorage.getItem('cart') || '[]');
 
   swiperModules = [IonicSlides];
