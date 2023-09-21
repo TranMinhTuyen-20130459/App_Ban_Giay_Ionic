@@ -39,7 +39,7 @@
                 <p>Giá khuyến mãi: {{ product?.promotional_price | currency:"VND" }}</p>
               </ion-text>            
             <ion-item>
-              <ion-select label="Chọn Size" justify="start" placeholder="xxx" ng-model="selectedSize" (ionChange)="handleChange($event)">
+              <ion-select label="Chọn Size" justify="start" placeholder="xxx" ng-model="selectedSize" (ionChange)="handleWhenSelectSizeChange($event)">
                 <ion-select-option *ngFor="let size of product?.list_size" [value]="size">{{ size.name_size
                   }}</ion-select-option>
               </ion-select>

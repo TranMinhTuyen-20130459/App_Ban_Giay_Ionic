@@ -14,13 +14,13 @@ import { CartItemModel } from 'src/app/models/cart-item-model';
 })
 export class ProdDetailPage implements OnInit {
 
-  product: ProductDetailModel | undefined;
+  product: ProductDetailModel | undefined; 
   showData = false;
   swiperModules = [IonicSlides];
 
-  selectedSize: SizeModel = { name_size: '', quantity_available: 0 };
+  selectedSize: SizeModel = { name_size: '', quantity_available: 0 }; // size được người dùng chọn
 
-  carts: CartItemModel[] = JSON.parse(localStorage.getItem('cart') || '[]');
+  carts: CartItemModel[] = JSON.parse(localStorage.getItem('cart') || '[]'); // => giỏ hàng được lưu trữ tại localStorage 
 
   constructor(private route: ActivatedRoute, private router: Router) { }
 
@@ -31,10 +31,12 @@ export class ProdDetailPage implements OnInit {
     });
   }
 
+  // chuyển hướng đến trang Search
   navigateToSearch() {
     this.router.navigate(['/search']);
   }
 
+  // thêm sản phẩm vào Giỏ Hàng
   addToCart(product: any) {
 
     console.log(this.selectedSize);
@@ -69,8 +71,9 @@ export class ProdDetailPage implements OnInit {
 
     console.log(this.carts);
   }
-
-  handleChange(e:any) {
+  
+  // hàm xử lý khi người dùng chọn Size  
+  handleWhenSelectSizeChange(e:any) {
     this.selectedSize = e.detail.value;
   }
 
