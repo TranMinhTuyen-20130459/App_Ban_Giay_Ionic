@@ -8,22 +8,15 @@
 
 <ion-content>
 
-   <!-- <ion-slides class="ion-padding" pager>
+  <!-- <ion-slides class="ion-padding" pager>
      <ion-slide *ngFor="let i of product?.list_images">
        <ion-img [src]="i?.path_image" alt="kun"></ion-img>
      </ion-slide>
    </ion-slides> -->
 
-   <div *ngIf="product && product.list_images.length > 0">
-    <swiper-container 
-      #swiper
-      [modules]="swiperModules"
-      [slidesPerView]="1.2"
-      [initialSlide]="1"
-      [centeredSlides]="true"
-      [autoplay]="true"
-      [spaceBetween]="20"
-      [pagination]="{clickable: true, dynamicBullets: true}">
+  <div *ngIf="product && product.list_images.length > 0">
+    <swiper-container #swiper [modules]="swiperModules" [slidesPerView]="1.2" [initialSlide]="1" [centeredSlides]="true"
+      [autoplay]="true" [spaceBetween]="20" [pagination]="{clickable: true, dynamicBullets: true}">
       <!-- effect="flip" -->
       <swiper-slide *ngFor="let i of product?.list_images">
         <img [src]="i?.path_image" alt="kun" />
@@ -54,9 +47,19 @@
                 <p>Giá khuyến mãi: {{ product?.promotional_price | currency:"VND" }}</p>
               </ion-text>
             </ion-label>
+            <ion-label>
+            <ion-item>
+              <ion-select label ng-model="selectedSize" (ionChange)="handleChange($event)">
+                <ion-select-option *ngFor="let size of product?.list_size" [value]="size">{{ size.name_size
+                  }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-label>
           </ion-card-content>
         </ion-card>
       </ion-col>
+
+     
     </ion-row>
   </ion-grid>
 </ion-content>
@@ -64,7 +67,7 @@
 <ion-footer>
   <ion-toolbar style="padding: 0 10px;">
     <ion-label>
-      <ion-button color="tertiary " expand="full" fill="solid">
+      <ion-button (click)="addToCart(product)" color="tertiary " expand="full" fill="solid">
         Add To Cart
       </ion-button>
     </ion-label>
