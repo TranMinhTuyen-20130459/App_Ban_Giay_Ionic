@@ -16,12 +16,11 @@ export class ProdDetailPage implements OnInit {
 
   product: ProductDetailModel | undefined;
   showData = false;
+  swiperModules = [IonicSlides];
 
   selectedSize: SizeModel = { name_size: '', quantity_available: 0 };
 
   carts: CartItemModel[] = JSON.parse(localStorage.getItem('cart') || '[]');
-
-  swiperModules = [IonicSlides];
 
   constructor(private route: ActivatedRoute, private router: Router) { }
 
@@ -40,12 +39,12 @@ export class ProdDetailPage implements OnInit {
 
     console.log(this.selectedSize);
 
-    // Lưu trữ dữ liệu vào local storage
+    // Lưu trữ dữ liệu vào Local Storage
     const newCartItem: CartItemModel = {
-      product: product, // Đặt thuộc tính product là đối tượng ProductDetailModel được truyền vào
-      name_size: product.name_size, // Thay name_size bằng thuộc tính thực tế của product
-      quantity: 1, // Số lượng ban đầu
-      price: product.listed_price, // Thay price bằng thuộc tính thực tế của product
+      product: product,
+      name_size: this.selectedSize.name_size,
+      quantity: 1,
+      price: product.listed_price,
     };
 
     const existingCartItem = this.carts.find(item => item.product.id_product === product.id_product);
@@ -73,7 +72,6 @@ export class ProdDetailPage implements OnInit {
 
   handleChange(e:any) {
     this.selectedSize = e.detail.value;
-    
   }
 
 }
