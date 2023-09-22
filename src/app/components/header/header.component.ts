@@ -14,7 +14,7 @@ import { TitleService } from 'src/app/services/title.service';
 })
 export class HeaderComponent implements OnInit {
   
-  title: string ="";
+  title: string = "";
 
   constructor(private router: Router, private titleService: TitleService) {}
 
@@ -31,9 +31,8 @@ export class HeaderComponent implements OnInit {
         } else if (currentRoute === '/cart') {
           title = 'Giỏ Hàng';
         } else if (currentRoute === '/account'){
-          title="Tài khoản"
-        }
-
+          title="Tài Khoản"
+        } 
         this.titleService.setTitle(title);
       });
 
@@ -43,7 +42,11 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  navigateToSearch() {
+  navigateToSearchPage() {
     this.router.navigate(['/search']);
+  }
+
+  navigateToCartPage() {
+    this.router.navigate(['/cart']);
   }
 }

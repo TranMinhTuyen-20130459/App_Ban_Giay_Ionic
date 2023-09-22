@@ -4,12 +4,13 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { IonicSlides } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { CartItemModel } from 'src/app/models/cart-item-model';
+import { HeaderComponent } from 'src/app/components/header/header.component';
 @Component({
   selector: 'app-prod-detail',
   templateUrl: './prod-detail.page.html',
   styleUrls: ['./prod-detail.page.scss'],
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,HeaderComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProdDetailPage implements OnInit {
@@ -34,6 +35,11 @@ export class ProdDetailPage implements OnInit {
   // chuyển hướng đến trang Search
   navigateToSearch() {
     this.router.navigate(['/search']);
+  }
+
+  // chuyển hướng đến trang Cart
+  navigateToCartPage() {
+    this.router.navigate(['/cart']);
   }
 
   // thêm sản phẩm vào Giỏ Hàng

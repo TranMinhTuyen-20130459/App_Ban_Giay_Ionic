@@ -6,7 +6,7 @@ import { BannerComponent } from '../../components/banner/banner.component';
 import {  HeaderComponent} from '../../components/header/header.component';
 import { Router } from '@angular/router';
 @Component({
-    selector: 'app-tab1',
+    selector: 'app-home',
     templateUrl: 'home.page.html',
     styleUrls: ['home.page.scss'],
     standalone: true,

@@ -10,10 +10,10 @@
     </ion-title>
 
     <ion-buttons slot="end">
-      <ion-button (click)="navigateToSearch()">
+      <ion-button (click)="navigateToSearchPage()">
         <ion-icon name="search-outline" slot="icon-only"></ion-icon>
     </ion-button>
-      <ion-button class="cart" routerLink="/tabs/tab3">
+      <ion-button class="cart" (click)="navigateToCartPage()">
         <ion-icon name="cart-outline"></ion-icon>
       </ion-button>
     </ion-buttons>

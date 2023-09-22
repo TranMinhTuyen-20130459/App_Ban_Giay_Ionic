@@ -15,3 +15,28 @@ div {
         }
     }
 }
+
+ion-badge {
+    margin-right: 20px;
+    position: absolute;
+    right: 0;
+    top: 10px;
+  }
+  
+  ion-icon[name="cart-outline"] {
+    color: rgba(231, 143, 78, 0.74);
+  }
+  
+  ion-buttons[slot="end"] > ion-button.cart {
+    margin-right: 20px;
+  }
+  
+  ion-buttons[slot="primary"] {
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+  
+    ion-button {
+      flex: 1;
+    }
+  }

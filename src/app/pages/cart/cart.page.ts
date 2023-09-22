@@ -6,7 +6,7 @@ import { CartItemModel } from 'src/app/models/cart-item-model';
 import { CartService } from "../../services/cart.service";
 
 @Component({
-  selector: 'app-cart-view',
+  selector: 'app-cart',
   templateUrl: './cart.page.html',
   styleUrls: ['./cart.page.scss'],
   standalone: true,
