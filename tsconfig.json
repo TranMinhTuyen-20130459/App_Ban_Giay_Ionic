@@ -22,7 +22,8 @@
       "es2018", 
       "dom"
     ],
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "importsNotUsedAsValues": "remove" /* tối ưu hóa thư viện import*/
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

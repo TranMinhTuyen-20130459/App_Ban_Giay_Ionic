@@ -1,4 +1,7 @@
-<div id="container">
+<app-header></app-header>
+
+<ion-content [fullscreen]="true" style="position: relative;">
+
   <ion-grid>
     <ion-row>
       <ion-col>
@@ -10,23 +13,22 @@
           </ion-card-header>
           <ion-card-content>
             <ion-item lines="none">
-              <ion-thumbnail slot="end" style="width:120px; height: auto;">
+              <ion-thumbnail slot="start" style="width:120px; height: auto;">
                 <ion-img *ngIf="item_cart?.product?.list_images && item_cart.product.list_images.length > 0" [src]="item_cart.product.list_images[0].path_image" style="width:120px; height: auto;"></ion-img>
               </ion-thumbnail>
-            </ion-item>
+              <ion-text slot="end" class="price-inner">
+                <h3>Giá: {{ item_cart?.price | currency:'VND'}}</h3>&nbsp;&nbsp;
+              </ion-text>
+            </ion-item> 
             <ion-item lines="none">
-              <ion-label class="price">
-                <ion-text class="price-inner">
-                  <h3>{{ item_cart?.price | currency:'VND'}}</h3>&nbsp;&nbsp;
-                </ion-text>
-              </ion-label>
-             
-            </ion-item>
-            <ion-item-divider></ion-item-divider>
-            <ion-button color="tertiary">Xóa</ion-button>
+              <ion-button slot="end" color="tertiary">
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+              </ion-button>
+            </ion-item>         
           </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
-</div>
+
+</ion-content>

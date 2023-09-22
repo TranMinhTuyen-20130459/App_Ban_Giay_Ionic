@@ -1,4 +1,4 @@
-import { BrandModel, ImageModel, SizeModel, TypeModel } from "./prod-detail-model";
+import { ImageModel } from "./prod-detail-model";
 
 // đây là Model mô hình hóa cấu trúc dữ liệu Json của sản phẩm sau khi được tìm kiếm 
 export interface ProductModel {
