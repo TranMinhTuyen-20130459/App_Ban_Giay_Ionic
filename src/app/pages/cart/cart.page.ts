@@ -19,10 +19,13 @@ export class CartPage implements OnInit {
 
   constructor(private cartService: CartService,private router: Router) { }
 
-  ngOnInit() {}
-
-  navigateToSearch() {
-    this.router.navigate(['/search']);
-}
-
+  ngOnInit() {
+  
+    // Đăng ký để lắng nghe thay đổi trong cartItems
+  this.cartService.cartItemsSubject.subscribe(cartItems => {
+      this.carts = cartItems;
+  });
+  
+  }
+  
 }
