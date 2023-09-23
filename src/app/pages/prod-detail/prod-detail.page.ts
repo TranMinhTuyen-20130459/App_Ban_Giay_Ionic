@@ -43,6 +43,18 @@ export class ProdDetailPage implements OnInit {
   // thêm sản phẩm vào Giỏ Hàng
   async addToCart(product: any) {
     console.log('Size:' + this.selectedSize);
+
+    if(this.selectedSize.name_size==""){
+      const toast = await this.toastController.create({
+        message: 'Bạn hãy chọn size cho sản phẩm',
+        duration: 2000, // Thời gian hiển thị (ms)
+        position: 'top', // Vị trí hiển thị
+        color: 'danger' // Đặt màu sắc chính của Toast thành 'danger' (màu đỏ)
+      });
+      await toast.present();
+      return;
+    }
+
     this.cartService.addItemToCart(product,this.selectedSize);   
 
     // Thông báo thay đổi đến các thành phần đang nghe
@@ -53,7 +65,8 @@ export class ProdDetailPage implements OnInit {
     const toast = await this.toastController.create({
       message: 'Sản phẩm đã được thêm vào giỏ hàng.',
       duration: 2000, // Thời gian hiển thị (ms)
-      position: 'top' // Vị trí hiển thị
+      position: 'top', // Vị trí hiển thị
+      color:'primary'
     });
     await toast.present();
   } else {

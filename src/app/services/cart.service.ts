@@ -52,7 +52,7 @@ export class CartService {
     }
 
     removeItemFromCart(product: ProductDetailModel) {
-
+        
     }
 
     private calculateTotal() {
