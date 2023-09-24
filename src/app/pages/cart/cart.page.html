@@ -1,34 +1,69 @@
 <app-header></app-header>
-
 <ion-content [fullscreen]="true" style="position: relative;">
-
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-card *ngFor="let item_cart of carts">
+        <!-- Danh sách các sản phẩm ở trong Giỏ Hàng-->
+        <ion-card *ngFor="let item_cart of _carts">
           <ion-card-header>
             <ion-card-title class="ion-text-left">
               {{ item_cart?.product?.name_product }}
             </ion-card-title>
           </ion-card-header>
           <ion-card-content>
+
+            <!--Thông tin sản phẩm-->
             <ion-item lines="none">
               <ion-thumbnail slot="start" style="width:120px; height: auto;">
-                <ion-img *ngIf="item_cart?.product?.list_images && item_cart.product.list_images.length > 0" [src]="item_cart.product.list_images[0].path_image" style="width:120px; height: auto;"></ion-img>
+                <ion-img *ngIf="item_cart?.product?.list_images && item_cart.product.list_images.length > 0"
+                  [src]="item_cart.product.list_images[0].path_image" style="width:120px; height: auto;"></ion-img>
               </ion-thumbnail>
               <ion-text slot="end" class="price-inner">
+                <h4>Size: {{item_cart?.name_size}}</h4>
+                <br>
                 <h3>Giá: {{ item_cart?.price | currency:'VND'}}</h3>&nbsp;&nbsp;
               </ion-text>
-            </ion-item> 
+            </ion-item>
+
+            <ion-item-divider>
+            </ion-item-divider>
+
             <ion-item lines="none">
-              <ion-button slot="end" color="tertiary">
+              <!-- nút xóa sản phẩm-->
+              <ion-button color="danger" (click)="openConfirmDialog(item_cart)">
                 <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
               </ion-button>
-            </ion-item>         
+              <!-- nút tăng,giảm số lượng sản phẩm -->
+              <ion-buttons slot="end">
+                <ion-button color="tertiary" (click)="decreaseQuantity(item_cart)">
+                  <ion-icon slot="icon-only" name="remove-outline"></ion-icon>
+                </ion-button>
+                <ion-text slot="star" class="quantity-inner">
+                  {{item_cart.quantity}}    
+                </ion-text>
+                <ion-button color="tertiary" (click)="increaseQuantity(item_cart)">
+                  <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-item>
+
           </ion-card-content>
         </ion-card>
+
+        <!--Thông tin về Giỏ Hàng-->
+        <ion-cart *ngIf="_carts.length > 0" class="fixed-cart">
+          <ion-card-header>
+            <ion-item>Tổng đơn hàng</ion-item>
+            <ion-item><ion-label>Giá: {{getTotalPriceInCart() | currency:'VND'}}</ion-label> </ion-item>
+            <ion-button fill="solid" color="success">Mua hàng</ion-button>
+          </ion-card-header>
+        </ion-cart>
+
+        <ion-label *ngIf="_carts.length == 0" class="empty-cart-message">
+          Không có sản phẩm trong Giỏ Hàng
+        </ion-label>
+
       </ion-col>
     </ion-row>
   </ion-grid>
-
 </ion-content>
