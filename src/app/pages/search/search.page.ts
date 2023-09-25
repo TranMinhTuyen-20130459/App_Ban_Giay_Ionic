@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from "../../services/product.service";
 import { ProductModel } from "../../models/product-model";
-import { LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-search',
@@ -16,7 +16,8 @@ export class SearchPage implements OnInit {
   touched: boolean = false;
 
   constructor(private productService: ProductService,
-    private loadingController: LoadingController) { }
+    private loadingController: LoadingController,
+    private alertController: AlertController) { }
 
   ngOnInit() {
   }
@@ -43,11 +44,9 @@ export class SearchPage implements OnInit {
         (error) => {
           console.error('Error searching for products:', error);
           this.showSkeleton = false;
-          // Xử lý lỗi nếu cần
         }
       );
     } else {
-      // Nếu từ khóa trống, hiển thị thông báo "Không tìm thấy sản phẩm"
       this.touched = true;
       this.showSkeleton = false;
     }
