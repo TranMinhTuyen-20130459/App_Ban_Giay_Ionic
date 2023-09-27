@@ -32,6 +32,8 @@ export class ProductService {
       return [];
     }
 
+    console.log(response.data);
+
     return response.data.map((item: { id_product: any; name_product: any; star_review: any; listed_price: any; promotional_price: any; list_image: any[]; id_status_product: any; }) => ({
       id_product: item.id_product,
       name_product: item.name_product,
@@ -43,7 +45,7 @@ export class ProductService {
     }));
   }
   // Lấy ra chi tiết của sản phẩm dựa theo id 
-   GetDetailProduct(id: number): Observable<ProductDetailModel | null> {
+  GetDetailProduct(id: number): Observable<ProductDetailModel | null> {
     return this.httpClient.get<any>(`${this.url}/products/infor-product?id=${id}`)
       .pipe(
         catchError((error: any) => {
@@ -54,7 +56,7 @@ export class ProductService {
       );
   }
   // Hàm ánh xạ từ JSON sang ProductDetailModel
-  private MapResponseToProductDetailModel(response: any): ProductDetailModel | null{
+  private MapResponseToProductDetailModel(response: any): ProductDetailModel | null {
     if (!response || !response.data) {
       return null;
     }
@@ -84,6 +86,24 @@ export class ProductService {
         name_type: data.type.name_type
       }
     };
+  }
+
+  // Load danh sách sản phẩm mới tại trang Home
+  GetNewProducts(page: number, pageSize: number): Observable<ProductModel[]> {
+
+    console.log('Đây là hàm lấy danh sách sản phẩm mới');
+    console.log('PageNumber:' + page);
+
+    const params = { page: page, pageSize: pageSize };
+
+    return this.httpClient.get<any>(`${this.url}/product-shoes/ds-giay-moi`, { params })
+      .pipe(
+        catchError((error: any) => {
+          console.error('Error searching for products:', error);
+          return throwError(error);
+        }),
+        map((response: any) => this.MapResponseToProductModels(response))
+      );
   }
 
 }

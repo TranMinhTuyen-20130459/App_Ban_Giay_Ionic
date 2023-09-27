@@ -38,6 +38,7 @@ export class SearchPage implements OnInit {
           // Lấy danh sách sản phẩm tìm kiếm được và gán vào searchedProducts
           this.searchedProducts = products;
           // Tắt hiệu ứng skeleton loading
+          console.log("Danh sách sản phẩm được tìm kiếm");
           console.log(this.searchedProducts)
           this.showSkeleton = false;
         },

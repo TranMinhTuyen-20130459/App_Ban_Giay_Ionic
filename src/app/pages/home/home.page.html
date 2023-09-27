@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <ion-content [fullscreen]="true" style="position: relative;">
- 
+
   <ion-toolbar style="position: fixed; top: 58px;">
     <ion-buttons slot="primary">
       <ion-button color="dark" expand="block" fill="clear">
@@ -13,8 +13,37 @@
         Lọc
       </ion-button>
     </ion-buttons>
-  </ion-toolbar> 
-  
+  </ion-toolbar>
+
   <app-banner></app-banner>
-  
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-list *ngIf="displayedList && displayedList.length > 0">
+          <ion-item *ngFor="let prod of displayedList" class="item-entry" detail
+            routerLink="/prod-detail/{{prod.id_product}}">
+            <ion-thumbnail style="width:80px;">
+              <ion-img *ngIf="prod.list_images && prod.list_images.length > 0" [src]="prod.list_images[0]"
+                alt="kun"></ion-img>
+            </ion-thumbnail>
+            <ion-label class="product">
+              <h3 class="item-name">{{ prod.name_product }}</h3>
+              <ion-text>
+                <p class="price">
+                  {{ prod.listed_price | currency:"VND"}}
+                </p>
+              </ion-text>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-infinite-scroll (ionInfinite)="loadMoreData($event)" threshold="10px">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more products....">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
 </ion-content>
