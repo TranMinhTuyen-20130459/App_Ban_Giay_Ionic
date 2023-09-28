@@ -87,7 +87,6 @@ export class ProductService {
       }
     };
   }
-
   // Load danh sách sản phẩm mới tại trang Home
   GetNewProducts(page: number, pageSize: number): Observable<ProductModel[]> {
 
@@ -105,16 +104,6 @@ export class ProductService {
         map((response: any) => this.MapResponseToProductModels(response))
       );
   }
-<<<<<<< HEAD
-  
-  getTinhThanhData(): Observable<any[]> {
-      return this.httpClient.get<any[]>('https://provinces.open-api.vn/api/?depth=2');
-  }
-  
-
-
-  
-=======
   // Load danh sách sản phẩm Nike_Nam
   GetNikeMaleProducts(page: number, pageSize: number): Observable<ProductModel[]> {
 
@@ -183,8 +172,8 @@ export class ProductService {
         map((response: any) => this.MapResponseToProductModels(response))
       );
   }
-   // Load danh sách sản phẩm Jordan_nam
-   GetJordanMaleProducts(page: number, pageSize: number): Observable<ProductModel[]> {
+  // Load danh sách sản phẩm Jordan_nam
+  GetJordanMaleProducts(page: number, pageSize: number): Observable<ProductModel[]> {
 
     console.log('Đây là hàm lấy danh sách sản phẩm mới');
     console.log('PageNumber:' + page);
@@ -217,7 +206,9 @@ export class ProductService {
         map((response: any) => this.MapResponseToProductModels(response))
       );
   }
-
->>>>>>> d5aa1946034de847c823a041c0a10bfb90a53bce
+  // lấy danh sách Tỉnh/Thành
+  getTinhThanhData(): Observable<any[]> {
+    return this.httpClient.get<any[]>('https://provinces.open-api.vn/api/?depth=2');
+  }
 
 }
