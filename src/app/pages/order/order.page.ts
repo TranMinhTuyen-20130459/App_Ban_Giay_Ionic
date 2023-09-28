@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { CustomerModel } from 'src/app/models/customer-model';
+import { CityData } from 'src/app/models/district-model';
 import { ProductModel } from 'src/app/models/product-model';
 import { CartService } from 'src/app/services/cart.service';
-import { environment } from 'src/environments/environment';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-order',
@@ -12,8 +13,15 @@ import { environment } from 'src/environments/environment';
 })
 export class OrderPage implements OnInit {
 
-  constructor(public cartService: CartService) {
+  constructor(public cartService: CartService, private dataService: DataService) {
   }
+  selectedProvince: any;
+  nameProvince: any;
+  selectedDistric: any;
+  selectedCommue: any;
+  provenceData: any[] | undefined;
+  districtData: any[] | undefined;
+  communeData: any[] | undefined;
 
   isPersonalUp: boolean = false;
   isBillingUp: boolean = false;
@@ -25,12 +33,14 @@ export class OrderPage implements OnInit {
   cartTotal = 0;
   products: ProductModel[] = [];
   userDetails!: CustomerModel;
-  IndianStates = environment.states;
   taxesRate = 0;
   finalTax = 0;
   math = Math;
 
   ngOnInit() {
+    this.dataService.getTinhThanhData().subscribe((data: any[]) => {
+      this.provenceData = data;
+    });
 
   }
 
@@ -61,6 +71,25 @@ export class OrderPage implements OnInit {
   }
 
 
+  onProvinceChange() {
+    this.dataService.getTinhThanhData().subscribe((data: any) => {
+
+      this.nameProvince = data.find((item: CityData) => item.code === this.selectedProvince).name;
+      this.districtData = data.find((item: CityData) => item.code === this.selectedProvince).districts;
+      console.log(this.nameProvince)
+    });
+  }
+  
+  onDistrictChange() {
+    this.dataService.getDistrictData(this.selectedProvince).subscribe((data: any) => {
+      if (this.districtData != undefined) {
+        this.communeData = data.wards;
+        console.log(this.communeData)
+      }
+    });
+
+  }
+
 }
 
 interface PaymentGateway {
@@ -71,6 +100,7 @@ interface PaymentGateway {
   method_description: string;
   method_title: string;
 }
+
 
 export interface LineItemsModel {
   product_id: number;

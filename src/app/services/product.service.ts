@@ -105,6 +105,12 @@ export class ProductService {
         map((response: any) => this.MapResponseToProductModels(response))
       );
   }
+  
+  getTinhThanhData(): Observable<any[]> {
+      return this.httpClient.get<any[]>('https://provinces.open-api.vn/api/?depth=2');
+  }
+  
+
 
   
 

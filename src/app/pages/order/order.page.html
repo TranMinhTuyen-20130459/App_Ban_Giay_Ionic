@@ -18,8 +18,8 @@
         <ion-col>
           <ion-list lines="full">
             <ion-list-header color="medium" lines="full" slot="start">
-              <ion-label  class="d-flex justify-content-between align-items-center"
-                data-target="#personalDetails" data-toggle="collapse">
+              <ion-label class="d-flex justify-content-between align-items-center" data-target="#personalDetails"
+                data-toggle="collapse">
                 <h2 class="ion-color-tertiary" style="color: #000000;">Thông Tin Khách Hàng </h2>
               </ion-label>
             </ion-list-header>
@@ -50,8 +50,8 @@
         <ion-col>
           <ion-list lines="full">
             <ion-list-header color="medium" lines="full" slot="start">
-              <ion-label class="d-flex justify-content-between align-items-center"
-                data-target="#billingDetails" data-toggle="collapse">
+              <ion-label class="d-flex justify-content-between align-items-center" data-target="#billingDetails"
+                data-toggle="collapse">
                 <h2 class="ion-color-tertiary" style="color: #000000;">Thông Tin Giao Hàng</h2>
               </ion-label>
             </ion-list-header>
@@ -61,18 +61,21 @@
               <ion-label position="stacked">Địa chỉ</ion-label>
               <ion-input #b_address_line_1="ngModel" name="b_address_line_1" ngModel required type="text"></ion-input>
               <ion-label position="stacked">Tỉnh/Thành Phố</ion-label>
-              <ion-select #b_state="ngModel" name="b_state" ngModel placeholder="Select State Here" required>
-                <ion-select-option *ngFor="let s of IndianStates; index as i" [value]="s.value">{{ s.name
+              <ion-select #b_state="ngModel" name="b_state" [(ngModel)]="selectedProvince"
+                placeholder="Chọn Tỉnh/Thành Phố" required (ionChange)="onProvinceChange()">
+                <ion-select-option *ngFor="let tinhThanh  of provenceData" [value]="tinhThanh.code">{{ tinhThanh.name
                   }}</ion-select-option>
               </ion-select>
               <ion-label position="stacked">Quận/Huyện</ion-label>
-              <ion-select #b_state="ngModel" name="b_state" ngModel placeholder="Select State Here" required>
-                <ion-select-option *ngFor="let s of IndianStates; index as i" [value]="s.value">{{ s.name
+              <ion-select #b_state="ngModel" name="b_state" [(ngModel)]="selectedDistric" placeholder="Chọn Quận/Huyện"
+                required (ionChange)="onDistrictChange()">
+                <ion-select-option *ngFor="let  district of districtData" [value]="district.code">{{ district.name
                   }}</ion-select-option>
               </ion-select>
               <ion-label position="stacked">Phường/Xã</ion-label>
-              <ion-select #b_state="ngModel" name="b_state" ngModel placeholder="Select State Here" required>
-                <ion-select-option *ngFor="let s of IndianStates; index as i" [value]="s.value">{{ s.name
+              <ion-select #b_state="ngModel" name="b_state" [(ngModel)]="selectedCommue" placeholder="Chọn Phường/Xã"
+                required>
+                <ion-select-option *ngFor="let commune of communeData" [value]="commune.code">{{ commune.name
                   }}</ion-select-option>
               </ion-select>
             </ion-item>
@@ -95,7 +98,7 @@
           </ion-card-header>
           <ion-card-content>
             <ion-list lines="none">
-            
+
               <ion-item>
                 <ion-label slot="start">
                   Phí Ship
