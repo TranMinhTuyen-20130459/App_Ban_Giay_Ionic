@@ -105,5 +105,108 @@ export class ProductService {
         map((response: any) => this.MapResponseToProductModels(response))
       );
   }
+  // Load danh sách sản phẩm Nike_Nam
+  GetNikeMaleProducts(page: number, pageSize: number): Observable<ProductModel[]> {
+
+    console.log('Đây là hàm lấy danh sách sản phẩm mới');
+    console.log('PageNumber:' + page);
+
+    const params = { page: page, pageSize: pageSize };
+
+    return this.httpClient.get<any>(`${this.url}/product-shoes/ds-giay-nike-nam`, { params })
+      .pipe(
+        catchError((error: any) => {
+          console.error('Error searching for products:', error);
+          return throwError(error);
+        }),
+        map((response: any) => this.MapResponseToProductModels(response))
+      );
+  }
+  // Load danh sách sản phẩm Nike_Nu
+  GetNikeFemaleProducts(page: number, pageSize: number): Observable<ProductModel[]> {
+
+    console.log('Đây là hàm lấy danh sách sản phẩm mới');
+    console.log('PageNumber:' + page);
+
+    const params = { page: page, pageSize: pageSize };
+
+    return this.httpClient.get<any>(`${this.url}/product-shoes/ds-giay-nike-nu`, { params })
+      .pipe(
+        catchError((error: any) => {
+          console.error('Error searching for products:', error);
+          return throwError(error);
+        }),
+        map((response: any) => this.MapResponseToProductModels(response))
+      );
+  }
+  // Load danh sách sản phẩm Nike_Nam
+  GetAdidasMaleProducts(page: number, pageSize: number): Observable<ProductModel[]> {
+
+    console.log('Đây là hàm lấy danh sách sản phẩm mới');
+    console.log('PageNumber:' + page);
+
+    const params = { page: page, pageSize: pageSize };
+
+    return this.httpClient.get<any>(`${this.url}/product-shoes/ds-giay-adidas-nam`, { params })
+      .pipe(
+        catchError((error: any) => {
+          console.error('Error searching for products:', error);
+          return throwError(error);
+        }),
+        map((response: any) => this.MapResponseToProductModels(response))
+      );
+  }
+  // Load danh sách sản phẩm Nike_Nu
+  GetAdidasFemaleProducts(page: number, pageSize: number): Observable<ProductModel[]> {
+
+    console.log('Đây là hàm lấy danh sách sản phẩm mới');
+    console.log('PageNumber:' + page);
+
+    const params = { page: page, pageSize: pageSize };
+
+    return this.httpClient.get<any>(`${this.url}/product-shoes/ds-giay-adidas-nu`, { params })
+      .pipe(
+        catchError((error: any) => {
+          console.error('Error searching for products:', error);
+          return throwError(error);
+        }),
+        map((response: any) => this.MapResponseToProductModels(response))
+      );
+  }
+   // Load danh sách sản phẩm Jordan_nam
+   GetJordanMaleProducts(page: number, pageSize: number): Observable<ProductModel[]> {
+
+    console.log('Đây là hàm lấy danh sách sản phẩm mới');
+    console.log('PageNumber:' + page);
+
+    const params = { page: page, pageSize: pageSize };
+
+    return this.httpClient.get<any>(`${this.url}/product-shoes/ds-giay-jordan-nam`, { params })
+      .pipe(
+        catchError((error: any) => {
+          console.error('Error searching for products:', error);
+          return throwError(error);
+        }),
+        map((response: any) => this.MapResponseToProductModels(response))
+      );
+  }
+  // Load danh sách sản phẩm Nike_Nu
+  GetJordanFemaleProducts(page: number, pageSize: number): Observable<ProductModel[]> {
+
+    console.log('Đây là hàm lấy danh sách sản phẩm mới');
+    console.log('PageNumber:' + page);
+
+    const params = { page: page, pageSize: pageSize };
+
+    return this.httpClient.get<any>(`${this.url}/product-shoes/ds-giay-jordan-nu`, { params })
+      .pipe(
+        catchError((error: any) => {
+          console.error('Error searching for products:', error);
+          return throwError(error);
+        }),
+        map((response: any) => this.MapResponseToProductModels(response))
+      );
+  }
+
 
 }
