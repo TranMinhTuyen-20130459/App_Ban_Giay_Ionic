@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="App_Ban_Giay" type="Application" factoryName="Application" singleton="false">
+    <module name="android" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/app" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
