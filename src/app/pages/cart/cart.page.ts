@@ -76,4 +76,8 @@ export class CartPage implements OnInit {
     return this.cartService._totalPrice;
   }
 
+  navigateToOrderPage() {
+    this.router.navigate(['/order']);
+  }
+
 }

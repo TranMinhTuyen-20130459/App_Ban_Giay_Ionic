@@ -22,7 +22,7 @@
       <ion-col>
         <ion-list *ngIf="displayedList && displayedList.length > 0">
           <ion-item *ngFor="let prod of displayedList" class="item-entry" detail
-            routerLink="/prod-detail/{{prod.id_product}}">
+            routerLink="prod-detail/{{prod.id_product}}">
             <ion-thumbnail style="width:80px;">
               <ion-img *ngIf="prod.list_images && prod.list_images.length > 0" [src]="prod.list_images[0]"
                 alt="kun"></ion-img>
@@ -37,7 +37,7 @@
             </ion-label>
           </ion-item>
         </ion-list>
-      </ion-col>
+      </ion-col> 
     </ion-row>
   </ion-grid>
 

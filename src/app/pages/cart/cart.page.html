@@ -55,7 +55,7 @@
           <ion-card-header>
             <ion-item>Tổng đơn hàng</ion-item>
             <ion-item><ion-label>Giá: {{getTotalPriceInCart() | currency:'VND'}}</ion-label> </ion-item>
-            <ion-button fill="solid" color="success">Mua hàng</ion-button>
+            <ion-button fill="solid" color="success" (click)="navigateToOrderPage()">Mua hàng</ion-button>
           </ion-card-header>
         </ion-cart>
 
