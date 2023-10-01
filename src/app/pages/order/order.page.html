@@ -1,0 +1,143 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-button routerLink="/cart">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-left">Đặt Hàng</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <form #checkoutForm="ngForm">
+    <ion-grid>
+      <!-- Thông tin khách hàng-->
+      <ion-row>
+        <ion-col>
+          <ion-list lines="full">
+            <ion-list-header color="medium" lines="full" slot="start">
+              <ion-label class="d-flex justify-content-between align-items-center" data-target="#personalDetails"
+                data-toggle="collapse">
+                <h2 class="ion-color-tertiary" style="color: #000000;">Thông Tin Khách Hàng </h2>
+              </ion-label>
+            </ion-list-header>
+            <div class="collapse" id="personalDetails">
+              <ion-item>
+                <ion-label position="floating">Họ Tên</ion-label>
+                <ion-input #fname="ngModel" name="first_name" ngModel required type="text"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="floating">Số điện thoại</ion-label>
+                <ion-input #phone="ngModel" name="phone" ngModel required type="text"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="floating">Email</ion-label>
+                <ion-input #email="ngModel" name="email" ngModel required type="email"></ion-input>
+              </ion-item>
+
+
+            </div>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <!-- Địa chỉ giao hàng-->
+      <ion-row>
+        <ion-col>
+          <ion-list lines="full">
+            <ion-list-header color="medium" lines="full" slot="start">
+              <ion-label class="d-flex justify-content-between align-items-center" data-target="#billingDetails"
+                data-toggle="collapse">
+                <h2 class="ion-color-tertiary" style="color: #000000;">Thông Tin Giao Hàng</h2>
+              </ion-label>
+            </ion-list-header>
+
+
+            <ion-item class="collapse" id="billingDetails">
+              <ion-label position="stacked">Địa chỉ</ion-label>
+              <ion-input #b_address_line_1="ngModel" name="b_address_line_1" ngModel required type="text"></ion-input>
+              <ion-label position="stacked">Tỉnh/Thành Phố</ion-label>
+              <ion-select #b_state="ngModel" name="b_state" [(ngModel)]="selectedProvince"
+                placeholder="Chọn Tỉnh/Thành Phố" required (ionChange)="onProvinceChange()">
+                <ion-select-option *ngFor="let tinhThanh  of provinceData" [value]="tinhThanh.code">{{ tinhThanh.name
+                  }}</ion-select-option>
+              </ion-select>
+              <ion-label position="stacked">Quận/Huyện</ion-label>
+              <ion-select #b_state="ngModel" name="b_state" [(ngModel)]="selectedDistric" placeholder="Chọn Quận/Huyện"
+                required (ionChange)="onDistrictChange()">
+                <ion-select-option *ngFor="let district of districtData" [value]="district.code">{{ district.name
+                  }}</ion-select-option>
+              </ion-select>
+              <ion-label position="stacked">Phường/Xã</ion-label>
+              <ion-select #b_state="ngModel" name="b_state" [(ngModel)]="selectedCommue" placeholder="Chọn Phường/Xã"
+                required>
+                <ion-select-option *ngFor="let ward of wardData" [value]="ward.code">{{ ward.name
+                  }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </form>
+
+  <ion-grid>
+
+    <!--  -->
+    <ion-row>
+      <ion-col>
+        <ion-card class="ion-no-padding ion-no-margin">
+          <ion-card-header color="medium">
+            <ion-card-title>Thông Tin Đơn Hàng</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list lines="none">
+
+              <ion-item>
+                <ion-label slot="start">
+                  Phí Ship
+                </ion-label>
+                <ion-label slot="end">
+                  <ion-text>FREE</ion-text>
+                </ion-label>
+              </ion-item>
+
+              <ion-item>
+                <ion-label slot="start">
+                  Trị Giá
+                </ion-label>
+              </ion-item>
+
+              <ion-item>
+                <ion-label slot="start">
+                  Tổng
+                </ion-label>
+                <ion-label slot="end">
+                  <ion-text></ion-text>
+                </ion-label>
+              </ion-item>
+
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <!--BUTTON XÁC NHẬN ĐẶT HÀNG-->
+  <ion-row>
+    <ion-col>
+      <ion-button [disabled]="checkoutForm.invalid || checkoutForm.pending" color="warning" expand="full" fill="solid"
+        size="large" type="submit">Đặt Hàng
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

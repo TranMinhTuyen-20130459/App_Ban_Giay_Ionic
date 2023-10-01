@@ -13,10 +13,7 @@
       <!-- Menu NIKE -->
       <ion-item (click)="isNikeMenuOpen = !isNikeMenuOpen">
         <ion-label>NIKE</ion-label>
-        <ion-icon
-          slot="end"
-          [name]="isNikeMenuOpen ? 'chevron-down' : 'chevron-forward'"
-        ></ion-icon>
+        <ion-icon slot="end" [name]="isNikeMenuOpen ? 'chevron-down' : 'chevron-forward'"></ion-icon>
       </ion-item>
       <ion-list lines="none" *ngIf="isNikeMenuOpen">
         <ion-item (click)="switchToNikeMaleData()">
@@ -30,10 +27,7 @@
       <!-- Menu ADIDAS -->
       <ion-item (click)="isAdidasMenuOpen = !isAdidasMenuOpen">
         <ion-label>ADIDAS</ion-label>
-        <ion-icon
-          slot="end"
-          [name]="isAdidasMenuOpen ? 'chevron-down' : 'chevron-forward'"
-        ></ion-icon>
+        <ion-icon slot="end" [name]="isAdidasMenuOpen ? 'chevron-down' : 'chevron-forward'"></ion-icon>
       </ion-item>
       <ion-list lines="none" *ngIf="isAdidasMenuOpen">
         <ion-item (click)="switchToAdidasMaleData()">
@@ -47,10 +41,7 @@
       <!-- Menu JORDAN -->
       <ion-item (click)="isJordanMenuOpen = !isJordanMenuOpen">
         <ion-label>JORDAN</ion-label>
-        <ion-icon
-          slot="end"
-          [name]="isJordanMenuOpen ? 'chevron-down' : 'chevron-forward'"
-        ></ion-icon>
+        <ion-icon slot="end" [name]="isJordanMenuOpen ? 'chevron-down' : 'chevron-forward'"></ion-icon>
       </ion-item>
       <ion-list lines="none" *ngIf="isJordanMenuOpen">
         <ion-item (click)="switchToJordanMaleData()">

@@ -6,6 +6,7 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
 import { ProductDetailModel, SizeModel } from 'src/app/models/prod-detail-model';
 import { CartService } from 'src/app/services/cart.service';
 import { ToastController } from '@ionic/angular';
+import { NetworkService } from 'src/app/services/network.service';
 
 @Component({
   selector: 'app-prod-detail',
@@ -26,7 +27,8 @@ export class ProdDetailPage implements OnInit {
   constructor(private route: ActivatedRoute, 
     private router: Router,
     private cartService: CartService,
-    private toastController: ToastController) { }
+    private toastController: ToastController,
+    private networkService: NetworkService) { }
 
   ngOnInit() {
     this.route.data.subscribe((data: any) => {

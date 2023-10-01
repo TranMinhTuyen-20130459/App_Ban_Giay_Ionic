@@ -1,8 +1,9 @@
-import { HomeReferenceService } from './../../services/home-reference.service';
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, ToastController } from "@ionic/angular";
+import { AlertController, LoadingController, ToastController } from "@ionic/angular";
 import { ProductModel } from "../../models/product-model";
 import { ProductService } from "../../services/product.service";
+import { HomeReferenceService } from './../../services/home-reference.service';
+import { NetworkService } from 'src/app/services/network.service';
 
 @Component({
     selector: 'app-home',
@@ -10,6 +11,7 @@ import { ProductService } from "../../services/product.service";
     styleUrls: ['home.page.scss']
 })
 export class HomePage implements OnInit {
+
     useLoadMoreDataNike: String = "NIKE_MALE";
     listArrayOfProducts: ProductModel[] = [];
     displayedList: ProductModel[] = [];
@@ -19,13 +21,13 @@ export class HomePage implements OnInit {
     constructor(private productService: ProductService,
         private loadingController: LoadingController,
         private toastController: ToastController,
-        private homeRefService: HomeReferenceService) {
-
-        this.loadMoreData(null).then();
-    }
+        private homeRefService: HomeReferenceService,
+        private networkService: NetworkService
+    ) { }
 
     async ngOnInit() {
- // Đặt tham chiếu của trang "home" vào dịch vụ
+
+        // Đặt tham chiếu của trang "home" vào dịch vụ
         this.homeRefService.setHomePageReference(this);
         console.log(this.displayedList);
 
@@ -53,28 +55,29 @@ export class HomePage implements OnInit {
             console.log(err);
         })
 
+
     }
 
     async loadMoreData(ev: any) {
         switch (this.useLoadMoreDataNike) {
             case "NIKE_MALE":
                 this.loadMoreNikeMale(ev);
-              break;
+                break;
             case "NIKE_FEMALE":
-            this.loadMoreNikeFemale(ev);
-            break;
+                this.loadMoreNikeFemale(ev);
+                break;
             case "ADIDAS_MALE":
-            this.loadMoreAdidasMale(ev);
-            break;
+                this.loadMoreAdidasMale(ev);
+                break;
             case "ADIDAS_FEMALE":
-            this.loadMoreAdidasFemale(ev);
-            break;
+                this.loadMoreAdidasFemale(ev);
+                break;
             case "JORDAN_MALE":
-            this.loadMoreJordanMale(ev);
-            break;
+                this.loadMoreJordanMale(ev);
+                break;
             case "JORDAN_FEMALE":
-            this.loadMoreJordanFemale(ev);
-            break;
+                this.loadMoreJordanFemale(ev);
+                break;
             default:
                 const toast = await this.toastController.create({
                     message: 'No More Products',
@@ -88,7 +91,7 @@ export class HomePage implements OnInit {
                         }
                     ]
                 });
-        
+
                 if (ev == null) {
                     this.currentPage = 1;
                 } else {
@@ -96,25 +99,25 @@ export class HomePage implements OnInit {
                     this.productService.GetNewProducts(this.currentPage, 15).subscribe(async (prods: ProductModel[]) => {
                         this.listArrayOfProducts = this.listArrayOfProducts.concat(prods);
                         this.displayedList = [...this.listArrayOfProducts];
-        
+
                         if (ev !== null) {
                             ev.target.complete();
                         }
-        
+
                         if (prods.length < 15) {
                             await toast.present().then();
                             ev.target.disabled = true;
                         }
-        
+
                     }, (err: any) => {
                         console.log(err);
                     });
-        
+
                 }
-              break;
-          }
-          
-        
+                break;
+        }
+
+
     }
     // load thêm sp Nike_Male
     async loadMoreNikeMale(ev: any) {
@@ -184,8 +187,8 @@ export class HomePage implements OnInit {
         })
 
     }
-     // load thêm sp Nike_Female
-     async loadMoreNikeFemale(ev: any) {
+    // load thêm sp Nike_Female
+    async loadMoreNikeFemale(ev: any) {
         const toast = await this.toastController.create({
             message: 'No More Products',
             animated: true,
@@ -252,276 +255,276 @@ export class HomePage implements OnInit {
         })
 
     }
-// load thêm sp adidas_Female
-async loadMoreAdidasFemale(ev: any) {
-    const toast = await this.toastController.create({
-        message: 'No More Products',
-        animated: true,
-        duration: 2000,
-        buttons: [
-            {
-                text: 'Done',
-                role: 'cancel',
-                icon: 'close'
-            }
-        ]
-    });
-
-    if (ev == null) {
-        this.currentPage = 1;
-    } else {
-        this.currentPage++;
-        this.productService.GetAdidasFemaleProducts(this.currentPage, 15).subscribe(async (prods: ProductModel[]) => {
-            this.listArrayOfProducts = this.listArrayOfProducts.concat(prods);
-            this.displayedList = [...this.listArrayOfProducts];
-
-            if (ev !== null) {
-                ev.target.complete();
-            }
-
-            if (prods.length < 15) {
-                await toast.present().then();
-                ev.target.disabled = true;
-            }
-
-        }, (err: any) => {
-            console.log(err);
+    // load thêm sp adidas_Female
+    async loadMoreAdidasFemale(ev: any) {
+        const toast = await this.toastController.create({
+            message: 'No More Products',
+            animated: true,
+            duration: 2000,
+            buttons: [
+                {
+                    text: 'Done',
+                    role: 'cancel',
+                    icon: 'close'
+                }
+            ]
         });
 
+        if (ev == null) {
+            this.currentPage = 1;
+        } else {
+            this.currentPage++;
+            this.productService.GetAdidasFemaleProducts(this.currentPage, 15).subscribe(async (prods: ProductModel[]) => {
+                this.listArrayOfProducts = this.listArrayOfProducts.concat(prods);
+                this.displayedList = [...this.listArrayOfProducts];
+
+                if (ev !== null) {
+                    ev.target.complete();
+                }
+
+                if (prods.length < 15) {
+                    await toast.present().then();
+                    ev.target.disabled = true;
+                }
+
+            }, (err: any) => {
+                console.log(err);
+            });
+
+        }
     }
-}
-// load sp adidas_FeMale
-async loadDataAdidasFemale() {
+    // load sp adidas_FeMale
+    async loadDataAdidasFemale() {
 
-    console.log(this.displayedList);
-
-    const loader = await this.loadingController.create({
-        message: 'Danh sách sản phẩm ..',
-        spinner: "bubbles",
-        animated: true
-    });
-    await loader.present().then();
-
-    this.productService.GetAdidasFemaleProducts(1, 15).subscribe(async (products: ProductModel[]) => {
-
-        await loader.dismiss().then();
-        this.listArrayOfProducts = products;
-        console.log('Danh sách sản phẩm All');
-        console.log(this.listArrayOfProducts);
-
-        this.displayedList = [...this.listArrayOfProducts];
-
-        console.log('Danh sách sản phẩm sẽ được hiển thị');
         console.log(this.displayedList);
 
-    }, async (err) => {
-        await loader.dismiss().then();
-        console.log(err);
-    })
+        const loader = await this.loadingController.create({
+            message: 'Danh sách sản phẩm ..',
+            spinner: "bubbles",
+            animated: true
+        });
+        await loader.present().then();
 
-}
-// load thêm sp adidas_male
-async loadMoreAdidasMale(ev: any) {
-    const toast = await this.toastController.create({
-        message: 'No More Products',
-        animated: true,
-        duration: 2000,
-        buttons: [
-            {
-                text: 'Done',
-                role: 'cancel',
-                icon: 'close'
-            }
-        ]
-    });
+        this.productService.GetAdidasFemaleProducts(1, 15).subscribe(async (products: ProductModel[]) => {
 
-    if (ev == null) {
-        this.currentPage = 1;
-    } else {
-        this.currentPage++;
-        this.productService.GetAdidasMaleProducts(this.currentPage, 15).subscribe(async (prods: ProductModel[]) => {
-            this.listArrayOfProducts = this.listArrayOfProducts.concat(prods);
+            await loader.dismiss().then();
+            this.listArrayOfProducts = products;
+            console.log('Danh sách sản phẩm All');
+            console.log(this.listArrayOfProducts);
+
             this.displayedList = [...this.listArrayOfProducts];
 
-            if (ev !== null) {
-                ev.target.complete();
-            }
+            console.log('Danh sách sản phẩm sẽ được hiển thị');
+            console.log(this.displayedList);
 
-            if (prods.length < 15) {
-                await toast.present().then();
-                ev.target.disabled = true;
-            }
-
-        }, (err: any) => {
+        }, async (err) => {
+            await loader.dismiss().then();
             console.log(err);
-        });
+        })
 
     }
-}
-// load sp Adidas_Male
-async loadDataAdidasMale() {
+    // load thêm sp adidas_male
+    async loadMoreAdidasMale(ev: any) {
+        const toast = await this.toastController.create({
+            message: 'No More Products',
+            animated: true,
+            duration: 2000,
+            buttons: [
+                {
+                    text: 'Done',
+                    role: 'cancel',
+                    icon: 'close'
+                }
+            ]
+        });
 
-    console.log(this.displayedList);
+        if (ev == null) {
+            this.currentPage = 1;
+        } else {
+            this.currentPage++;
+            this.productService.GetAdidasMaleProducts(this.currentPage, 15).subscribe(async (prods: ProductModel[]) => {
+                this.listArrayOfProducts = this.listArrayOfProducts.concat(prods);
+                this.displayedList = [...this.listArrayOfProducts];
 
-    const loader = await this.loadingController.create({
-        message: 'Danh sách sản phẩm ..',
-        spinner: "bubbles",
-        animated: true
-    });
-    await loader.present().then();
+                if (ev !== null) {
+                    ev.target.complete();
+                }
 
-    this.productService.GetAdidasMaleProducts(1, 15).subscribe(async (products: ProductModel[]) => {
+                if (prods.length < 15) {
+                    await toast.present().then();
+                    ev.target.disabled = true;
+                }
 
-        await loader.dismiss().then();
-        this.listArrayOfProducts = products;
-        console.log('Danh sách sản phẩm All');
-        console.log(this.listArrayOfProducts);
+            }, (err: any) => {
+                console.log(err);
+            });
 
-        this.displayedList = [...this.listArrayOfProducts];
+        }
+    }
+    // load sp Adidas_Male
+    async loadDataAdidasMale() {
 
-        console.log('Danh sách sản phẩm sẽ được hiển thị');
         console.log(this.displayedList);
 
-    }, async (err) => {
-        await loader.dismiss().then();
-        console.log(err);
-    })
+        const loader = await this.loadingController.create({
+            message: 'Danh sách sản phẩm ..',
+            spinner: "bubbles",
+            animated: true
+        });
+        await loader.present().then();
 
-}
-// load thêm sp jordan_male
-async loadMoreJordanMale(ev: any) {
-    const toast = await this.toastController.create({
-        message: 'No More Products',
-        animated: true,
-        duration: 2000,
-        buttons: [
-            {
-                text: 'Done',
-                role: 'cancel',
-                icon: 'close'
-            }
-        ]
-    });
+        this.productService.GetAdidasMaleProducts(1, 15).subscribe(async (products: ProductModel[]) => {
 
-    if (ev == null) {
-        this.currentPage = 1;
-    } else {
-        this.currentPage++;
-        this.productService.GetJordanMaleProducts(this.currentPage, 15).subscribe(async (prods: ProductModel[]) => {
-            this.listArrayOfProducts = this.listArrayOfProducts.concat(prods);
+            await loader.dismiss().then();
+            this.listArrayOfProducts = products;
+            console.log('Danh sách sản phẩm All');
+            console.log(this.listArrayOfProducts);
+
             this.displayedList = [...this.listArrayOfProducts];
 
-            if (ev !== null) {
-                ev.target.complete();
-            }
+            console.log('Danh sách sản phẩm sẽ được hiển thị');
+            console.log(this.displayedList);
 
-            if (prods.length < 15) {
-                await toast.present().then();
-                ev.target.disabled = true;
-            }
-
-        }, (err: any) => {
+        }, async (err) => {
+            await loader.dismiss().then();
             console.log(err);
-        });
+        })
 
     }
-}
-// load sp Jordan_Male
-async loadDataJordanMale() {
+    // load thêm sp jordan_male
+    async loadMoreJordanMale(ev: any) {
+        const toast = await this.toastController.create({
+            message: 'No More Products',
+            animated: true,
+            duration: 2000,
+            buttons: [
+                {
+                    text: 'Done',
+                    role: 'cancel',
+                    icon: 'close'
+                }
+            ]
+        });
 
-    console.log(this.displayedList);
+        if (ev == null) {
+            this.currentPage = 1;
+        } else {
+            this.currentPage++;
+            this.productService.GetJordanMaleProducts(this.currentPage, 15).subscribe(async (prods: ProductModel[]) => {
+                this.listArrayOfProducts = this.listArrayOfProducts.concat(prods);
+                this.displayedList = [...this.listArrayOfProducts];
 
-    const loader = await this.loadingController.create({
-        message: 'Danh sách sản phẩm ..',
-        spinner: "bubbles",
-        animated: true
-    });
-    await loader.present().then();
+                if (ev !== null) {
+                    ev.target.complete();
+                }
 
-    this.productService.GetJordanMaleProducts(1, 15).subscribe(async (products: ProductModel[]) => {
+                if (prods.length < 15) {
+                    await toast.present().then();
+                    ev.target.disabled = true;
+                }
 
-        await loader.dismiss().then();
-        this.listArrayOfProducts = products;
-        console.log('Danh sách sản phẩm All');
-        console.log(this.listArrayOfProducts);
+            }, (err: any) => {
+                console.log(err);
+            });
 
-        this.displayedList = [...this.listArrayOfProducts];
+        }
+    }
+    // load sp Jordan_Male
+    async loadDataJordanMale() {
 
-        console.log('Danh sách sản phẩm sẽ được hiển thị');
         console.log(this.displayedList);
 
-    }, async (err) => {
-        await loader.dismiss().then();
-        console.log(err);
-    })
+        const loader = await this.loadingController.create({
+            message: 'Danh sách sản phẩm ..',
+            spinner: "bubbles",
+            animated: true
+        });
+        await loader.present().then();
 
-}
-// load thêm sp jordan_female
-async loadMoreJordanFemale(ev: any) {
-    const toast = await this.toastController.create({
-        message: 'No More Products',
-        animated: true,
-        duration: 2000,
-        buttons: [
-            {
-                text: 'Done',
-                role: 'cancel',
-                icon: 'close'
-            }
-        ]
-    });
+        this.productService.GetJordanMaleProducts(1, 15).subscribe(async (products: ProductModel[]) => {
 
-    if (ev == null) {
-        this.currentPage = 1;
-    } else {
-        this.currentPage++;
-        this.productService.GetJordanFemaleProducts(this.currentPage, 15).subscribe(async (prods: ProductModel[]) => {
-            this.listArrayOfProducts = this.listArrayOfProducts.concat(prods);
+            await loader.dismiss().then();
+            this.listArrayOfProducts = products;
+            console.log('Danh sách sản phẩm All');
+            console.log(this.listArrayOfProducts);
+
             this.displayedList = [...this.listArrayOfProducts];
 
-            if (ev !== null) {
-                ev.target.complete();
-            }
+            console.log('Danh sách sản phẩm sẽ được hiển thị');
+            console.log(this.displayedList);
 
-            if (prods.length < 15) {
-                await toast.present().then();
-                ev.target.disabled = true;
-            }
-
-        }, (err: any) => {
+        }, async (err) => {
+            await loader.dismiss().then();
             console.log(err);
-        });
+        })
 
     }
-}
-// load sp jordan_female
-async loadDataJordanFemale() {
+    // load thêm sp jordan_female
+    async loadMoreJordanFemale(ev: any) {
+        const toast = await this.toastController.create({
+            message: 'No More Products',
+            animated: true,
+            duration: 2000,
+            buttons: [
+                {
+                    text: 'Done',
+                    role: 'cancel',
+                    icon: 'close'
+                }
+            ]
+        });
 
-    console.log(this.displayedList);
+        if (ev == null) {
+            this.currentPage = 1;
+        } else {
+            this.currentPage++;
+            this.productService.GetJordanFemaleProducts(this.currentPage, 15).subscribe(async (prods: ProductModel[]) => {
+                this.listArrayOfProducts = this.listArrayOfProducts.concat(prods);
+                this.displayedList = [...this.listArrayOfProducts];
 
-    const loader = await this.loadingController.create({
-        message: 'Danh sách sản phẩm ..',
-        spinner: "bubbles",
-        animated: true
-    });
-    await loader.present().then();
+                if (ev !== null) {
+                    ev.target.complete();
+                }
 
-    this.productService.GetJordanFemaleProducts(1, 15).subscribe(async (products: ProductModel[]) => {
+                if (prods.length < 15) {
+                    await toast.present().then();
+                    ev.target.disabled = true;
+                }
 
-        await loader.dismiss().then();
-        this.listArrayOfProducts = products;
-        console.log('Danh sách sản phẩm All');
-        console.log(this.listArrayOfProducts);
+            }, (err: any) => {
+                console.log(err);
+            });
 
-        this.displayedList = [...this.listArrayOfProducts];
+        }
+    }
+    // load sp jordan_female
+    async loadDataJordanFemale() {
 
-        console.log('Danh sách sản phẩm sẽ được hiển thị');
         console.log(this.displayedList);
 
-    }, async (err) => {
-        await loader.dismiss().then();
-        console.log(err);
-    })
+        const loader = await this.loadingController.create({
+            message: 'Danh sách sản phẩm ..',
+            spinner: "bubbles",
+            animated: true
+        });
+        await loader.present().then();
 
-}
+        this.productService.GetJordanFemaleProducts(1, 15).subscribe(async (products: ProductModel[]) => {
+
+            await loader.dismiss().then();
+            this.listArrayOfProducts = products;
+            console.log('Danh sách sản phẩm All');
+            console.log(this.listArrayOfProducts);
+
+            this.displayedList = [...this.listArrayOfProducts];
+
+            console.log('Danh sách sản phẩm sẽ được hiển thị');
+            console.log(this.displayedList);
+
+        }, async (err) => {
+            await loader.dismiss().then();
+            console.log(err);
+        })
+
+    }
 }
