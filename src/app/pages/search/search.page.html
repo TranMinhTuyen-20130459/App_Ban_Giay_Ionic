@@ -6,7 +6,8 @@
     <ion-title>Tìm kiếm</ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar (ionChange)="search($event)" debounce="500" color="light" placeholder="Nhập tên sản phẩm..."></ion-searchbar>
+    <ion-searchbar (ionChange)="search($event)" debounce="500" color="light"
+      placeholder="Nhập tên sản phẩm..."></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
@@ -20,18 +21,15 @@
         <!-- Kiểm tra xem có sản phẩm nào trong danh sách "searchedProducts" hay không -->
         <ion-list *ngIf="searchedProducts.length > 0">
           <!-- Lặp qua danh sách các sản phẩm -->
-          <ion-item 
-          *ngFor="let p of searchedProducts"
-          (click)="loadingSpinner()"
-          routerLink="/search/prod-detail/{{ p.id_product }}"
-          >
+          <ion-item *ngFor="let p of searchedProducts" (click)="loadingSpinner()"
+            routerLink="/search/prod-detail/{{ p.id_product }}">
             <!-- Hiển thị hình ảnh sản phẩm -->
-            <ion-thumbnail>
+            <ion-thumbnail style="width:80px;">
               <ion-img *ngIf="p.list_images && p.list_images.length > 0" [src]="p.list_images[0]" alt="kun"></ion-img>
             </ion-thumbnail>
-            <ion-label>
+            <ion-label class="product">
               <!-- Hiển thị tên sản phẩm -->
-              <h4>{{p.name_product}}</h4>
+              <h3 class="item-name">{{p.name_product}}</h3>
               <ion-text>
                 <!-- Hiển thị giá sản phẩm với định dạng tiền tệ VND -->
                 <p>{{p.listed_price | currency:"VND"}}</p>
@@ -39,7 +37,7 @@
             </ion-label>
           </ion-item>
         </ion-list>
-        
+
         <!-- Hiển thị hiệu ứng skeleton loading khi danh sách sản phẩm đang được tải -->
         <ion-list *ngIf="showSkeleton">
           <ion-item *ngFor="let d of [].constructor(5)">
@@ -58,7 +56,7 @@
         </ion-list>
 
         <!-- Hiển thị thông báo khi không có sản phẩm nào được tìm thấy -->
-        <ion-list *ngIf="searchedProducts.length == 0 && touched" lines="none">
+        <ion-list *ngIf="searchedProducts.length == 0" lines="none">
           <ion-item>
             <ion-label>
               <!-- Thông báo "No Products Found" -->
