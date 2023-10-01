@@ -37,7 +37,7 @@ export class CartPage implements OnInit {
   async openConfirmDialog(item_cart: any) {
     const alert = await this.alertController.create({
       header: '',
-      message: 'Xóa sản phẩm khỏi giỏ hàng ?',
+      message: 'Xóa sản phẩm khỏi giỏ hàng?',
       buttons: [
         {
           text: 'Hủy',

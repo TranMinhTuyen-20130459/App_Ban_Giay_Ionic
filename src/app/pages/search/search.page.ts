@@ -57,7 +57,7 @@ export class SearchPage implements OnInit {
 
   loadingSpinner() {
     this.loadingController.create({
-      message: "Loading Details..",
+      message: "Thông tin sản phẩm...",
       animated: true,
       spinner: "crescent",
       backdropDismiss: false,
