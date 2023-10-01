@@ -2,6 +2,7 @@ import { HomePage } from './../pages/home/home.page';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HomeReferenceService } from '../services/home-reference.service';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tabs',
@@ -14,75 +15,108 @@ export class TabsPage {
   isAdidasMenuOpen = false;
   isJordanMenuOpen = false;
 
-  constructor(private router: Router, private homeRefService: HomeReferenceService) {}
+  constructor(private router: Router,
+    private homeRefService: HomeReferenceService,
+    private menuCtrl: MenuController) { }
 
   // NIKE
   switchToNikeMaleData() {
+
     // Điều hướng đến trang "home"
     this.router.navigateByUrl('/home').then(() => {
+
+      this.menuCtrl.enable(false, 'first'); // Đóng menu "Danh Mục"
+
       // Lấy tham chiếu đến trang "home" từ dịch vụ và gọi hàm loadDataNikeMale()
       const homePageReference = this.homeRefService.getHomePageReference();
       if (homePageReference) {
         homePageReference.loadDataNikeMale();
-        homePageReference.useLoadMoreDataNike="NIKE_MALE";
+        homePageReference.useLoadMoreDataNike = "NIKE_MALE";
       }
+
+      this.menuCtrl.enable(true, 'first'); // Hiển thị menu "Danh Mục"
     });
   }
   switchToNikeFemaleData() {
     // Điều hướng đến trang "home"
     this.router.navigateByUrl('/home').then(() => {
+
+      this.menuCtrl.enable(false, 'first'); // Đóng menu "Danh Mục"
+
       // Lấy tham chiếu đến trang "home" từ dịch vụ và gọi hàm loadDataNikeMale()
       const homePageReference = this.homeRefService.getHomePageReference();
       if (homePageReference) {
         homePageReference.loadDataNikeFemale();
-        homePageReference.useLoadMoreDataNike="NIKE_FEMALE";
+        homePageReference.useLoadMoreDataNike = "NIKE_FEMALE";
       }
+
+      this.menuCtrl.enable(true, 'first'); // Hiển thị menu "Danh Mục"
     });
   }
   //ADIDAS
   switchToAdidasMaleData() {
     // Điều hướng đến trang "home"
     this.router.navigateByUrl('/home').then(() => {
+
+      this.menuCtrl.enable(false, 'first'); // Đóng menu "Danh Mục"
+
       // Lấy tham chiếu đến trang "home" từ dịch vụ và gọi hàm loadDataNikeMale()
       const homePageReference = this.homeRefService.getHomePageReference();
       if (homePageReference) {
         homePageReference.loadDataAdidasMale();
-        homePageReference.useLoadMoreDataNike="ADIDAS_MALE";
+        homePageReference.useLoadMoreDataNike = "ADIDAS_MALE";
       }
+
+      this.menuCtrl.enable(true, 'first'); // Hiển thị menu "Danh Mục"
     });
   }
   switchToAdidasFemaleData() {
     // Điều hướng đến trang "home"
     this.router.navigateByUrl('/home').then(() => {
+
+      this.menuCtrl.enable(false, 'first'); // Đóng menu "Danh Mục"
+
       // Lấy tham chiếu đến trang "home" từ dịch vụ và gọi hàm loadDataNikeMale()
       const homePageReference = this.homeRefService.getHomePageReference();
       if (homePageReference) {
         homePageReference.loadDataAdidasFemale();
-        homePageReference.useLoadMoreDataNike="ADIDAS_FEMALE";
+        homePageReference.useLoadMoreDataNike = "ADIDAS_FEMALE";
       }
+
+      this.menuCtrl.enable(true, 'first'); // Hiển thị menu "Danh Mục"
     });
   }
   //JORDAN
   switchToJordanMaleData() {
     // Điều hướng đến trang "home"
     this.router.navigateByUrl('/home').then(() => {
+
+      this.menuCtrl.enable(false, 'first'); // Đóng menu "Danh Mục"
+
       // Lấy tham chiếu đến trang "home" từ dịch vụ và gọi hàm loadDataNikeMale()
       const homePageReference = this.homeRefService.getHomePageReference();
       if (homePageReference) {
         homePageReference.loadDataJordanMale();
-        homePageReference.useLoadMoreDataNike="JORDAN_MALE";
+        homePageReference.useLoadMoreDataNike = "JORDAN_MALE";
       }
+
+      this.menuCtrl.enable(true, 'first'); // Hiển thị menu "Danh Mục"
     });
   }
   switchToJordanFemaleData() {
     // Điều hướng đến trang "home"
     this.router.navigateByUrl('/home').then(() => {
+
+      this.menuCtrl.enable(false, 'first'); // Đóng menu "Danh Mục"
+
       // Lấy tham chiếu đến trang "home" từ dịch vụ và gọi hàm loadDataNikeMale()
       const homePageReference = this.homeRefService.getHomePageReference();
       if (homePageReference) {
         homePageReference.loadDataJordanFemale();
-        homePageReference.useLoadMoreDataNike="JORDAN_FEMALE";
+        homePageReference.useLoadMoreDataNike = "JORDAN_FEMALE";
       }
+
+      this.menuCtrl.enable(true, 'first'); // Hiển thị menu "Danh Mục"
     });
   }
 
