@@ -38,9 +38,14 @@ export class NetworkService {
         const alert = await this.alertController.create({
             header: 'Lỗi kết nối',
             message: 'Không có kết nối mạng.',
-            buttons: ['OK'],
+            buttons: ['OK']
         });
         await alert.present();
         console.log('Hiển thị cửa sổ thông báo tình trạng mạng');
+
+        // Sử dụng setTimeout để đóng cửa sổ thông báo sau 5 giây
+        setTimeout(() => {
+            alert.dismiss(); // Đóng cửa sổ thông báo
+        }, 5000);
     }
 }
