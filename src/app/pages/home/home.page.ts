@@ -1,9 +1,9 @@
-import { HomeReferenceService } from './../../services/home-reference.service';
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, ToastController } from "@ionic/angular";
+import { AlertController, LoadingController, ToastController } from "@ionic/angular";
 import { ProductModel } from "../../models/product-model";
 import { ProductService } from "../../services/product.service";
-import { Network } from '@capacitor/network';
+import { HomeReferenceService } from './../../services/home-reference.service';
+import { NetworkService } from 'src/app/services/network.service';
 
 @Component({
     selector: 'app-home',
@@ -11,6 +11,7 @@ import { Network } from '@capacitor/network';
     styleUrls: ['home.page.scss']
 })
 export class HomePage implements OnInit {
+
     useLoadMoreDataNike: String = "NIKE_MALE";
     listArrayOfProducts: ProductModel[] = [];
     displayedList: ProductModel[] = [];
@@ -20,15 +21,11 @@ export class HomePage implements OnInit {
     constructor(private productService: ProductService,
         private loadingController: LoadingController,
         private toastController: ToastController,
-        private homeRefService: HomeReferenceService) {
-
-        this.loadMoreData(null).then();
-    }
+        private homeRefService: HomeReferenceService,
+        private networkService: NetworkService
+    ) { }
 
     async ngOnInit() {
-
-        // Kiểm tra trạng thái kết nối mạng khi trang được tải
-        this.checkNetworkStatus();
 
         // Đặt tham chiếu của trang "home" vào dịch vụ
         this.homeRefService.setHomePageReference(this);
@@ -58,28 +55,7 @@ export class HomePage implements OnInit {
             console.log(err);
         })
 
-    }
 
-    async checkNetworkStatus() {
-        const status = await Network.getStatus();
-        console.log('Trạng thái mạng:', status);
-
-        if (status.connected === false) {
-            console.log('Không có kết nối mạng');
-            this.displayNetworkToast(); // Gọi hàm hiển thị Toast khi không có mạng
-        } else {
-            console.log('Đã kết nối lại mạng');
-            // Thực hiện các xử lý khi đã kết nối lại mạng ở đây
-        }
-    }
-
-    async displayNetworkToast() {
-        const toast = await this.toastController.create({
-            message: 'Không có kết nối mạng',
-            duration: 2000, // Thời gian hiển thị Toast (2 giây)
-            position: 'middle' // Vị trí hiển thị Toast
-        });
-        toast.present();
     }
 
     async loadMoreData(ev: any) {

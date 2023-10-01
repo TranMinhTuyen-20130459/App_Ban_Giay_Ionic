@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from 'src/app/components/header/header.component';
+import { NetworkService } from 'src/app/services/network.service';
 
 @Component({
   selector: 'app-account',
@@ -10,7 +11,7 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
 })
 export class AccountPage implements OnInit {
 
-  constructor() { }
+  constructor(private networkService: NetworkService) { }
 
   ngOnInit() {
   }

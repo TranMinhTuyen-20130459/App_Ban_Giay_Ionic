@@ -9,6 +9,7 @@ import { FormsModule } from "@angular/forms";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BackendInterceptor } from './services/backend.interceptor';
+import { NetworkService } from './services/network.service';
 
 @NgModule({
     declarations: [AppComponent],
@@ -25,7 +26,8 @@ import { BackendInterceptor } from './services/backend.interceptor';
             provide: HTTP_INTERCEPTORS,
             useClass: BackendInterceptor,
             multi: true
-        }
+        },
+        NetworkService
     ],
     bootstrap: [AppComponent]
 })

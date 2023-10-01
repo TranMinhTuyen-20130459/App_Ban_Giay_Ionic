@@ -5,6 +5,7 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
 import { CartItemModel } from 'src/app/models/cart-item-model';
 import { CartService } from "../../services/cart.service";
 import { AlertController } from '@ionic/angular';
+import { NetworkService } from 'src/app/services/network.service';
 
 @Component({
   selector: 'app-cart',
@@ -20,7 +21,8 @@ export class CartPage implements OnInit {
 
   constructor(private cartService: CartService,
     private router: Router,
-    private alertController: AlertController) { }
+    private alertController: AlertController,
+    private networkService: NetworkService) { }
 
   ngOnInit() {
 

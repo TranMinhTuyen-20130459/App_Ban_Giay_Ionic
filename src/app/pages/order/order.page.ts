@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { CustomerModel } from 'src/app/models/customer-model';
-import { CityData } from 'src/app/models/district-model';
+import { CityModel } from 'src/app/models/administrative-unit-model';
 import { ProductModel } from 'src/app/models/product-model';
 import { CartService } from 'src/app/services/cart.service';
-import { DataService } from 'src/app/services/data.service';
+import { AddressService } from 'src/app/services/address.service';
+import { NetworkService } from 'src/app/services/network.service';
 
 @Component({
   selector: 'app-order',
@@ -13,97 +14,44 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class OrderPage implements OnInit {
 
-  constructor(public cartService: CartService, private dataService: DataService) {
+  constructor(public cartService: CartService, 
+    private dataAddressService: AddressService,
+    private networkService: NetworkService) {
   }
+
   selectedProvince: any;
   nameProvince: any;
   selectedDistric: any;
   selectedCommue: any;
-  provenceData: any[] | undefined;
+  provinceData: any[] | undefined;
   districtData: any[] | undefined;
-  communeData: any[] | undefined;
-
-  isPersonalUp: boolean = false;
-  isBillingUp: boolean = false;
-  isShippingUp: boolean = false;
-  isPaymentUp: boolean = false;
-  sameShipping: boolean = false;
-  paymentGateway: PaymentGateway[] = [];
-  subTotal = 0;
-  cartTotal = 0;
-  products: ProductModel[] = [];
-  userDetails!: CustomerModel;
-  taxesRate = 0;
-  finalTax = 0;
-  math = Math;
+  wardData: any[] | undefined;
 
   ngOnInit() {
-    this.dataService.getTinhThanhData().subscribe((data: any[]) => {
-      this.provenceData = data;
+
+    this.dataAddressService.GetProvinceData().subscribe((data: any[]) => {
+      this.provinceData = data;
     });
 
   }
 
-  toggleUp(section: string) {
-
-    switch (section) {
-      case 'billing':
-        this.isBillingUp = !this.isBillingUp;
-        break;
-      case 'shipping':
-        this.isShippingUp = !this.isShippingUp;
-        break;
-      case 'payment':
-        this.isPaymentUp = !this.isPaymentUp;
-        break;
-      default:
-        this.isPersonalUp = !this.isPersonalUp;
-        break;
-    }
-  }
-
-  toggleShipping() {
-    this.sameShipping = !this.sameShipping;
-  }
-
-  checkout(checkoutForm: NgForm) {
-
-  }
-
-
   onProvinceChange() {
-    this.dataService.getTinhThanhData().subscribe((data: any) => {
+    this.dataAddressService.GetProvinceData().subscribe((data: any) => {
 
-      this.nameProvince = data.find((item: CityData) => item.code === this.selectedProvince).name;
-      this.districtData = data.find((item: CityData) => item.code === this.selectedProvince).districts;
+      this.nameProvince = data.find((item: CityModel) => item.code === this.selectedProvince).name;
+      this.districtData = data.find((item: CityModel) => item.code === this.selectedProvince).districts;
       console.log(this.nameProvince)
     });
   }
-  
+
   onDistrictChange() {
-    this.dataService.getDistrictData(this.selectedProvince).subscribe((data: any) => {
+    this.dataAddressService.GetDistrictData(this.selectedProvince).subscribe((data: any) => {
       if (this.districtData != undefined) {
-        this.communeData = data.wards;
-        console.log(this.communeData)
+        this.wardData = data.wards;
+        console.log(this.wardData)
       }
     });
 
   }
 
-}
-
-interface PaymentGateway {
-  description: string;
-  enabled: boolean;
-  title: string;
-  id: string;
-  method_description: string;
-  method_title: string;
-}
-
-
-export interface LineItemsModel {
-  product_id: number;
-  quantity: number;
-  variation_id?: number;
 }

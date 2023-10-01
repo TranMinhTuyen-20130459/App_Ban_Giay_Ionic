@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from "../../services/product.service";
 import { ProductModel } from "../../models/product-model";
 import { AlertController, LoadingController } from '@ionic/angular';
+import { NetworkService } from 'src/app/services/network.service';
 
 @Component({
   selector: 'app-search',
@@ -17,7 +18,8 @@ export class SearchPage implements OnInit {
 
   constructor(private productService: ProductService,
     private loadingController: LoadingController,
-    private alertController: AlertController) { }
+    private alertController: AlertController,
+    private networkService: NetworkService) { }
 
   ngOnInit() {
   }

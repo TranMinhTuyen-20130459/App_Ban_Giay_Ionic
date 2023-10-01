@@ -63,19 +63,19 @@
               <ion-label position="stacked">Tỉnh/Thành Phố</ion-label>
               <ion-select #b_state="ngModel" name="b_state" [(ngModel)]="selectedProvince"
                 placeholder="Chọn Tỉnh/Thành Phố" required (ionChange)="onProvinceChange()">
-                <ion-select-option *ngFor="let tinhThanh  of provenceData" [value]="tinhThanh.code">{{ tinhThanh.name
+                <ion-select-option *ngFor="let tinhThanh  of provinceData" [value]="tinhThanh.code">{{ tinhThanh.name
                   }}</ion-select-option>
               </ion-select>
               <ion-label position="stacked">Quận/Huyện</ion-label>
               <ion-select #b_state="ngModel" name="b_state" [(ngModel)]="selectedDistric" placeholder="Chọn Quận/Huyện"
                 required (ionChange)="onDistrictChange()">
-                <ion-select-option *ngFor="let  district of districtData" [value]="district.code">{{ district.name
+                <ion-select-option *ngFor="let district of districtData" [value]="district.code">{{ district.name
                   }}</ion-select-option>
               </ion-select>
               <ion-label position="stacked">Phường/Xã</ion-label>
               <ion-select #b_state="ngModel" name="b_state" [(ngModel)]="selectedCommue" placeholder="Chọn Phường/Xã"
                 required>
-                <ion-select-option *ngFor="let commune of communeData" [value]="commune.code">{{ commune.name
+                <ion-select-option *ngFor="let ward of wardData" [value]="ward.code">{{ ward.name
                   }}</ion-select-option>
               </ion-select>
             </ion-item>
@@ -110,11 +110,7 @@
 
               <ion-item>
                 <ion-label slot="start">
-                  Trị Giá Đơn Hàng
-                </ion-label>
-                <ion-label slot="end">
-                  <ion-spinner name="bubbles" *ngIf="!finalTax"></ion-spinner>
-                  <ion-text *ngIf="finalTax"></ion-text>
+                  Trị Giá
                 </ion-label>
               </ion-item>
 
@@ -135,15 +131,13 @@
   </ion-grid>
 
 
-  <!--SUBMIT BUTTON-->
+  <!--BUTTON XÁC NHẬN ĐẶT HÀNG-->
   <ion-row>
     <ion-col>
-      <ion-button (click)="checkout(checkoutForm)" [disabled]="checkoutForm.invalid || checkoutForm.pending"
-        color="warning" expand="full" fill="solid" size="large" type="submit">Đặt Hàng
+      <ion-button [disabled]="checkoutForm.invalid || checkoutForm.pending" color="warning" expand="full" fill="solid"
+        size="large" type="submit">Đặt Hàng
       </ion-button>
     </ion-col>
   </ion-row>
-
-
 
 </ion-content>
