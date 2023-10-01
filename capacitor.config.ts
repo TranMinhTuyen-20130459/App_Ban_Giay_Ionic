@@ -5,7 +5,9 @@ const config: CapacitorConfig = {
   appName: 'App_Ban_Giay',
   webDir: 'www',
   server: {
-    androidScheme: 'http'
+    androidScheme: "http",
+    cleartext: true,
+    allowNavigation: ["*"]
   }
 };
 

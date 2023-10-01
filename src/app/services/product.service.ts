@@ -98,7 +98,7 @@ export class ProductService {
     return this.httpClient.get<any>(`${this.url}/product-shoes/ds-giay-moi`, { params })
       .pipe(
         catchError((error: any) => {
-          console.error('Error searching for products:', error);
+          console.error('Error load products:', error.message);
           return throwError(error);
         }),
         map((response: any) => this.MapResponseToProductModels(response))
