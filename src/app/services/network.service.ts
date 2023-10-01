@@ -37,7 +37,7 @@ export class NetworkService {
     async displayNetworkAlert() {
         const alert = await this.alertController.create({
             header: 'Lỗi kết nối',
-            message: 'Không có kết nối mạng.',
+            message: 'Không có kết nối mạng',
             buttons: ['OK']
         });
         await alert.present();
