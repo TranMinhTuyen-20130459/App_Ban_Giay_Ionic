@@ -23,6 +23,7 @@
                 <h2 class="ion-color-tertiary" style="color: #000000;">Thông Tin Khách Hàng </h2>
               </ion-label>
             </ion-list-header>
+
             <div class="collapse" id="personalDetails">
               <ion-item>
                 <ion-label position="floating">Họ Tên</ion-label>
@@ -75,30 +76,41 @@
               </ion-label>
             </ion-list-header>
 
+            <div class="collapse" id="addressDetails">
+              <ion-item>
+                <ion-label position="stacked">Địa chỉ</ion-label>
+                <ion-input formControlName="address" required type="text"></ion-input>
+                <div *ngIf="orderForm.get('address')?.errors?.['required'] && orderForm.get('address')?.touched"
+                  class="error-message">
+                  Vui lòng nhập địa chỉ giao hàng.
+                </div>
+              </ion-item>
 
-            <ion-item class="collapse" id="billingDetails">
-              <ion-label position="stacked">Địa chỉ</ion-label>
-              <ion-input #b_address_line_1="ngModel" name="b_address_line_1" ngModel required type="text"></ion-input>
-              <ion-label position="stacked">Tỉnh/Thành Phố</ion-label>
-              <ion-select #b_state="ngModel" name="b_state" [(ngModel)]="selectedProvince"
-                placeholder="Chọn Tỉnh/Thành Phố" required (ionChange)="onProvinceChange()">
-                <ion-select-option *ngFor="let tinhThanh  of provinceData" [value]="tinhThanh.code">{{ tinhThanh.name
-                  }}</ion-select-option>
-              </ion-select>
-              <ion-label position="stacked">Quận/Huyện</ion-label>
-              <ion-select #b_state="ngModel" name="b_state" [(ngModel)]="selectedDistric" placeholder="Chọn Quận/Huyện"
-                required (ionChange)="onDistrictChange()">
-                <ion-select-option *ngFor="let district of districtData" [value]="district.code">{{ district.name
-                  }}</ion-select-option>
-              </ion-select>
-              <ion-label position="stacked">Phường/Xã</ion-label>
-              <ion-select #b_state="ngModel" name="b_state" [(ngModel)]="selectedCommue" placeholder="Chọn Phường/Xã"
-                required>
-                <ion-select-option *ngFor="let ward of wardData" [value]="ward.code">{{ ward.name
-                  }}</ion-select-option>
-              </ion-select>
-            </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Tỉnh/Thành Phố</ion-label>
+                <ion-select name="province" placeholder="Chọn Tỉnh/Thành Phố" required
+                  (ionChange)="onProvinceChange($event)">
+                  <ion-select-option *ngFor="let province of provinceData" [value]="province">{{ province.name
+                    }}</ion-select-option>
+                </ion-select>
+              </ion-item>
 
+              <ion-item>
+                <ion-label position="stacked">Quận/Huyện</ion-label>
+                <ion-select name="district" placeholder="Chọn Quận/Huyện" required (ionChange)="onDistrictChange($event)">
+                  <ion-select-option *ngFor="let district of districtData" [value]="district">{{ district.name
+                    }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="stacked">Phường/Xã</ion-label>
+                <ion-select name="ward" placeholder="Chọn Phường/Xã" required>
+                  <ion-select-option *ngFor="let ward of wardData" [value]="ward">{{ ward.name
+                    }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </div>
 
           </ion-list>
         </ion-col>

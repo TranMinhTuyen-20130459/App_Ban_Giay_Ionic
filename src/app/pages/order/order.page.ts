@@ -13,10 +13,6 @@ import { UtilService } from 'src/app/services/utils.service';
 })
 export class OrderPage implements OnInit {
 
-  selectedProvince: any;
-  nameProvince: any;
-  selectedDistric: any;
-  selectedCommue: any;
   provinceData: any[] | undefined;
   districtData: any[] | undefined;
   wardData: any[] | undefined;
@@ -36,7 +32,7 @@ export class OrderPage implements OnInit {
   order_value: number = this.cartService._totalPrice;
   total_price: number = this.ship_price + this.order_value;
 
-  orderForm: FormGroup;
+  orderForm: FormGroup; // Form Đặt Hàng
 
   constructor(private cartService: CartService,
     private dataAddressService: AddressService,
@@ -52,15 +48,18 @@ export class OrderPage implements OnInit {
       ]),
       email: new FormControl('', [
         Validators.required,
-        Validators.email, // Sử dụng built-in validator cho email
+        Validators.email,
       ]),
+      address: new FormControl('', [Validators.required])
     });
   }
 
   ngOnInit() {
+
     // Gọi API lấy danh sách Tỉnh/Thành 
     this.dataAddressService.GetProvinceData().subscribe((data: any[]) => {
       this.provinceData = data;
+      console.log(this.provinceData);
     });
 
     // Lắng nghe sự thay đổi của Tổng giá trị trong giỏ hàng
@@ -71,23 +70,28 @@ export class OrderPage implements OnInit {
 
   }
 
-  onProvinceChange() {
-    this.dataAddressService.GetProvinceData().subscribe((data: any) => {
+  onProvinceChange(e: any) {
 
-      this.nameProvince = data.find((item: CityModel) => item.code === this.selectedProvince).name;
-      this.districtData = data.find((item: CityModel) => item.code === this.selectedProvince).districts;
-      console.log(this.nameProvince)
-    });
+    const selectedProvinceValue = e.detail.value;
+    console.log('Province Code: ' + selectedProvinceValue.code + '\n' + 'Province Name: ' + selectedProvinceValue.name);
+
+    this.districtData = [];
+    this.wardData = [];
+
+    this.dataAddressService.GetDistrictData(selectedProvinceValue.code).subscribe((data: any) => {
+      this.districtData = data.districts;
+      console.log(this.districtData);
+    })
   }
 
-  onDistrictChange() {
-    this.dataAddressService.GetDistrictData(this.selectedProvince).subscribe((data: any) => {
-      if (this.districtData != undefined) {
-        this.wardData = data.wards;
-        console.log(this.wardData)
-      }
-    });
+  onDistrictChange(e: any) {
+    const selectedDistrictValue = e.detail.value;
+    console.log('District Code: ' + selectedDistrictValue.code + '\n' + 'District Name: ' + selectedDistrictValue.name);
 
+    this.dataAddressService.GetWardData(selectedDistrictValue.code).subscribe((data: any) => {
+      this.wardData = data.wards;
+      console.log(this.wardData);
+    })
   }
 
   createOrder(): void {
