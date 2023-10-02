@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button menuId="first"></ion-menu-button>
     </ion-buttons>
     <ion-title>
       {{title}}
@@ -10,7 +10,7 @@
     <ion-buttons slot="end">
       <ion-button (click)="navigateToSearchPage()">
         <ion-icon name="search-outline" slot="icon-only"></ion-icon>
-    </ion-button>
+      </ion-button>
       <ion-button class="cart" (click)="navigateToCartPage()">
         <ion-icon name="cart-outline"></ion-icon>
       </ion-button>
