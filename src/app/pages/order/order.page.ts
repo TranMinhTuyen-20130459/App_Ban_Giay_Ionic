@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CityModel } from 'src/app/models/administrative-unit-model';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { AddressService } from 'src/app/services/address.service';
 import { CartService } from 'src/app/services/cart.service';
 import { NetworkService } from 'src/app/services/network.service';
@@ -28,6 +29,7 @@ export class OrderPage implements OnInit {
   ward_id: string = "";
   district_id: string = "";
   province_id: string = "";
+
   ship_price: number = 0;
   order_value: number = this.cartService._totalPrice;
   total_price: number = this.ship_price + this.order_value;
@@ -37,7 +39,9 @@ export class OrderPage implements OnInit {
   constructor(private cartService: CartService,
     private dataAddressService: AddressService,
     private networkService: NetworkService,
-    private utilService: UtilService) {
+    private utilService: UtilService,
+    private alertController: AlertController,
+    private router: Router) {
 
     // Khởi tạo FormGroup và liên kết các FormControl với nó
     this.orderForm = new FormGroup({
@@ -50,16 +54,18 @@ export class OrderPage implements OnInit {
         Validators.required,
         Validators.email,
       ]),
-      address: new FormControl('', [Validators.required])
+      address: new FormControl('', [Validators.required]),
+      province: new FormControl('', [Validators.required]),
+      district: new FormControl('', [Validators.required]),
+      ward: new FormControl('', [Validators.required])
     });
   }
 
   ngOnInit() {
-
     // Gọi API lấy danh sách Tỉnh/Thành 
     this.dataAddressService.GetProvinceData().subscribe((data: any[]) => {
       this.provinceData = data;
-      console.log(this.provinceData);
+      // console.log(this.provinceData);
     });
 
     // Lắng nghe sự thay đổi của Tổng giá trị trong giỏ hàng
@@ -73,34 +79,125 @@ export class OrderPage implements OnInit {
   onProvinceChange(e: any) {
 
     const selectedProvinceValue = e.detail.value;
-    console.log('Province Code: ' + selectedProvinceValue.code + '\n' + 'Province Name: ' + selectedProvinceValue.name);
+    // console.log('Province Code: ' + selectedProvinceValue.code + '\n' + 'Province Name: ' + selectedProvinceValue.name);
 
     this.districtData = [];
     this.wardData = [];
 
+    this.province_name = selectedProvinceValue.name;
+
     this.dataAddressService.GetDistrictData(selectedProvinceValue.code).subscribe((data: any) => {
       this.districtData = data.districts;
-      console.log(this.districtData);
+      // console.log(this.districtData);
     })
   }
 
   onDistrictChange(e: any) {
     const selectedDistrictValue = e.detail.value;
-    console.log('District Code: ' + selectedDistrictValue.code + '\n' + 'District Name: ' + selectedDistrictValue.name);
+    // console.log('District Code: ' + selectedDistrictValue.code + '\n' + 'District Name: ' + selectedDistrictValue.name);
+
+    this.district_name = selectedDistrictValue.name;
 
     this.dataAddressService.GetWardData(selectedDistrictValue.code).subscribe((data: any) => {
       this.wardData = data.wards;
-      console.log(this.wardData);
+      // console.log(this.wardData);
     })
   }
 
-  createOrder(): void {
+  onWardChange(e: any) {
+
+    const selectedWardValue = e.detail.value;
+    this.ward_name = selectedWardValue.name;
+    // console.log(this.ward_name);
+
   }
 
-  // hiển thị cửa sổ thông báo khi gọi API thêm đơn hàng vào hệ thống
+  createOrder(): void {
+
+    if (this.orderForm.valid) {
+
+      // Lấy dữ liệu từ các FormControl
+      this.name_customer = this.orderForm.get('name_customer')?.value;
+      // console.log('Name Customer: ' + this.name_customer);
+
+      this.phone_customer = this.orderForm.get('phone')?.value;
+      // console.log('Phone_Customer: ' + this.phone_customer);
+
+      this.email_customer = this.orderForm.get('email')?.value;
+      // console.log('Email Customer: ' + this.email_customer);
+
+      this.address = this.orderForm.get('address')?.value;
+      // console.log('Address: ' + this.address);
+
+      this.province_name = this.orderForm.get('province')?.value.name;
+      // console.log('Province Name: ' + this.province_name);
+
+      this.district_name = this.orderForm.get('district')?.value.name;
+      // console.log('District Name: ' + this.district_name);
+
+      this.ward_name = this.orderForm.get('ward')?.value.name;
+      // console.log('Ward Name: ' + this.ward_name);
+
+      this.province_id = this.orderForm.get('province')?.value.code;
+      // console.log('Province Id: ' + this.province_id);
+
+      this.district_id = this.orderForm.get('district')?.value.code;
+      // console.log('District Id: ' + this.district_id);
+
+      this.ward_id = this.orderForm.get('ward')?.value.code;
+      // console.log('Ward Id: ' + this.ward_id);
+
+      this.showSuccessAlert();
+
+    } else {
+      this.showErrorAlert();
+    }
+  }
 
   // hiển thị cửa sổ thông báo khi thêm đơn hàng "Thành Công"
+  async showSuccessAlert(): Promise<void> {
+    const alert = await this.alertController.create({
+      header: 'Thành Công',
+      message: 'Đã thêm đơn hàng thành công!',
+      buttons: [{
+
+        text: 'OK',
+        handler: () => {
+          // Xóa dữ liệu giỏ hàng trong localStorage
+          localStorage.removeItem('carts');
+
+          // Reset _cartItems bằng cách gán nó thành một mảng rỗng []
+          this.cartService._cartItems = [];
+
+          // Cập nhật giỏ hàng trong CartService (nếu cần)
+          this.cartService._totalPrice = 0;
+
+          // Cập nhật BehaviorSubject để thông báo sự thay đổi trong giỏ hàng
+          this.cartService.cartItemsSubject.next(this.cartService._cartItems);
+          this.cartService.totalPriceSubject.next(this.cartService._totalPrice);
+
+          // Sau khi xóa dữ liệu giỏ hàng, chuyển hướng đến trang /home
+          this.router.navigate(['/home']);
+
+        }
+      }],
+      cssClass: 'success-alert', // Thêm một lớp CSS tùy chỉnh nếu cần thiết
+      backdropDismiss: false // Ngăn người dùng đóng cửa sổ bằng cách nhấp vào nền
+    });
+
+    await alert.present();
+  }
 
   // hiển thị cửa sổ thông báo khi thêm đơn hàng "Thất Bại"
+  async showErrorAlert(): Promise<void> {
+    const alert = await this.alertController.create({
+      header: 'Thất Bại',
+      message: 'Thêm đơn hàng thất bại. Vui lòng thử lại sau.',
+      buttons: ['OK'],
+      cssClass: 'error-alert', // Thêm một lớp CSS tùy chỉnh nếu cần thiết
+      backdropDismiss: false // Ngăn người dùng đóng cửa sổ bằng cách nhấp vào nền
+    });
 
+    await alert.present();
+  }
 }

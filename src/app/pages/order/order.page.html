@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="danger">
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button routerLink="/cart">
         <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
@@ -88,27 +88,41 @@
 
               <ion-item>
                 <ion-label position="stacked">Tỉnh/Thành Phố</ion-label>
-                <ion-select name="province" placeholder="Chọn Tỉnh/Thành Phố" required
+                <ion-select formControlName="province" placeholder="Chọn Tỉnh/Thành Phố" required
                   (ionChange)="onProvinceChange($event)">
                   <ion-select-option *ngFor="let province of provinceData" [value]="province">{{ province.name
                     }}</ion-select-option>
                 </ion-select>
+                <!-- Thông báo yêu cầu chọn Tỉnh/Thành Phố -->
+                <div *ngIf="province_name=='' && orderForm.get('province')?.touched" class="error-message">
+                  Vui lòng chọn Tỉnh/Thành Phố.
+                </div>
               </ion-item>
 
               <ion-item>
                 <ion-label position="stacked">Quận/Huyện</ion-label>
-                <ion-select name="district" placeholder="Chọn Quận/Huyện" required (ionChange)="onDistrictChange($event)">
+                <ion-select formControlName="district" placeholder="Chọn Quận/Huyện" required
+                  (ionChange)="onDistrictChange($event)">
                   <ion-select-option *ngFor="let district of districtData" [value]="district">{{ district.name
                     }}</ion-select-option>
                 </ion-select>
+                <!-- Thông báo yêu cầu chọn Quận/Huyện -->
+                <div *ngIf="district_name=='' && orderForm.get('district')?.touched" class="error-message">
+                  Vui lòng chọn Quận/Huyện.
+                </div>
               </ion-item>
 
               <ion-item>
                 <ion-label position="stacked">Phường/Xã</ion-label>
-                <ion-select name="ward" placeholder="Chọn Phường/Xã" required>
+                <ion-select formControlName="ward" placeholder="Chọn Phường/Xã" required
+                  (ionChange)="onWardChange($event)">
                   <ion-select-option *ngFor="let ward of wardData" [value]="ward">{{ ward.name
                     }}</ion-select-option>
                 </ion-select>
+                <!-- Thông báo yêu cầu chọn Phường/Xã -->
+                <div *ngIf="ward_name=='' && orderForm.get('ward')?.touched" class="error-message">
+                  Vui lòng chọn Phường/Xã.
+                </div>
               </ion-item>
             </div>
 
@@ -165,11 +179,11 @@
 
   <!--BUTTON XÁC NHẬN ĐẶT HÀNG-->
   <ion-row>
-    <!-- <ion-col>
-      <ion-button [disabled]="orderForm.invalid || orderForm.pending" color="warning" expand="full" fill="solid"
-        size="large" type="submit">Đặt Hàng
+    <ion-col>
+      <ion-button (click)="createOrder()" [disabled]="orderForm.invalid || orderForm.pending" color="success"
+        expand="full" fill="solid" size="large" type="submit">Đặt Hàng
       </ion-button>
-    </ion-col> -->
+    </ion-col>
   </ion-row>
 
 </ion-content>
