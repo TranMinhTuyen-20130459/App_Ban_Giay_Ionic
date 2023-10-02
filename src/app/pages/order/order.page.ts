@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { OrderModel } from 'src/app/models/order-model';
 import { AddressService } from 'src/app/services/address.service';
 import { CartService } from 'src/app/services/cart.service';
 import { NetworkService } from 'src/app/services/network.service';
+import { OrderService } from 'src/app/services/order.service';
 import { UtilService } from 'src/app/services/utils.service';
 
 @Component({
@@ -40,6 +42,7 @@ export class OrderPage implements OnInit {
     private dataAddressService: AddressService,
     private networkService: NetworkService,
     private utilService: UtilService,
+    private orderService: OrderService,
     private alertController: AlertController,
     private router: Router) {
 
@@ -147,7 +150,50 @@ export class OrderPage implements OnInit {
       this.ward_id = this.orderForm.get('ward')?.value.code;
       // console.log('Ward Id: ' + this.ward_id);
 
-      this.showSuccessAlert();
+      const orderData: OrderModel = {
+
+        name_customer: this.name_customer,
+        phone: this.phone_customer,
+        email_customer: this.email_customer,
+
+        to_address: {
+          address: this.address,
+          province_name: this.province_name,
+          district_name: this.district_name,
+          ward_name: this.ward_name,
+          province_id: this.province_id + "",
+          district_id: this.district_id + "",
+          ward_id: this.ward_id + ""
+        },
+
+        note: "",
+        ship_price: this.ship_price,
+        order_value: this.order_value,
+
+        list_order_detail: this.cartService._cartItems.map((cartItem) => ({
+          id_product: cartItem.product.id_product,
+          name_size: cartItem.name_size,
+          quantity: cartItem.quantity,
+          price: cartItem.price
+        }))
+      };
+
+      this.orderService.CreateOrder(orderData).subscribe(
+        (response) => {
+          if (response && response.id_order) {
+            const idOrder = response.id_order;
+            console.log('Đã tạo đơn hàng thành công. ID đơn hàng:', idOrder);
+            this.showSuccessAlert();
+          } else {
+            console.error('Lỗi: Không có ID đơn hàng trong phản hồi.');
+            this.showErrorAlert();
+          }
+        },
+        (error) => {
+          console.error('Lỗi khi gọi API:', error);
+          this.showErrorAlert();
+        }
+      );
 
     } else {
       this.showErrorAlert();
