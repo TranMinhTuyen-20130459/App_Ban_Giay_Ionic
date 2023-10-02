@@ -5,7 +5,7 @@ import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BackendInterceptor } from './services/backend.interceptor';
@@ -15,6 +15,7 @@ import { NetworkService } from './services/network.service';
     declarations: [AppComponent],
     imports: [
         BrowserModule,
+        ReactiveFormsModule,
         IonicModule.forRoot(),
         HttpClientModule,
         FormsModule,

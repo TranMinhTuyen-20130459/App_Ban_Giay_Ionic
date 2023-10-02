@@ -11,7 +11,7 @@
 
 <ion-content fullscreen>
 
-  <form #checkoutForm="ngForm">
+  <form [formGroup]="orderForm">
     <ion-grid>
       <!-- Thông tin khách hàng-->
       <ion-row>
@@ -26,20 +26,39 @@
             <div class="collapse" id="personalDetails">
               <ion-item>
                 <ion-label position="floating">Họ Tên</ion-label>
-                <ion-input #fname="ngModel" name="first_name" ngModel required type="text"></ion-input>
+                <ion-input formControlName="name_customer" required type="text"></ion-input>
+                <div
+                  *ngIf="orderForm.get('name_customer')?.errors?.['required'] && orderForm.get('name_customer')?.touched"
+                  class="error-message">
+                  Vui lòng nhập Họ Tên.
+                </div>
               </ion-item>
 
               <ion-item>
                 <ion-label position="floating">Số điện thoại</ion-label>
-                <ion-input #phone="ngModel" name="phone" ngModel required type="text"></ion-input>
+                <ion-input formControlName="phone" required type="text"></ion-input>
+                <div *ngIf="orderForm.get('phone')?.errors?.['required'] && orderForm.get('phone')?.touched"
+                  class="error-message">
+                  Vui lòng nhập Số điện thoại.
+                </div>
+                <div *ngIf="orderForm.get('phone')?.errors?.['pattern'] && orderForm.get('phone')?.touched"
+                  class="error-message">
+                  Số điện thoại không hợp lệ.
+                </div>
               </ion-item>
 
               <ion-item>
                 <ion-label position="floating">Email</ion-label>
-                <ion-input #email="ngModel" name="email" ngModel required type="email"></ion-input>
+                <ion-input formControlName="email" required type="email"></ion-input>
+                <div *ngIf="orderForm.get('email')?.errors?.['required'] && orderForm.get('email')?.touched"
+                  class="error-message">
+                  Vui lòng nhập Email.
+                </div>
+                <div *ngIf="orderForm.get('email')?.errors?.['email'] && orderForm.get('email')?.touched"
+                  class="error-message">
+                  Email không hợp lệ.
+                </div>
               </ion-item>
-
-
             </div>
           </ion-list>
         </ion-col>
@@ -80,16 +99,14 @@
               </ion-select>
             </ion-item>
 
+
           </ion-list>
         </ion-col>
       </ion-row>
-
     </ion-grid>
   </form>
 
   <ion-grid>
-
-    <!--  -->
     <ion-row>
       <ion-col>
         <ion-card class="ion-no-padding ion-no-margin">
@@ -112,6 +129,9 @@
                 <ion-label slot="start">
                   Trị Giá
                 </ion-label>
+                <ion-label slot="end">
+                  <ion-text>{{order_value | currency:"VND"}}</ion-text>
+                </ion-label>
               </ion-item>
 
               <ion-item>
@@ -119,7 +139,7 @@
                   Tổng
                 </ion-label>
                 <ion-label slot="end">
-                  <ion-text></ion-text>
+                  <ion-text>{{total_price | currency:"VND"}}</ion-text>
                 </ion-label>
               </ion-item>
 
@@ -133,11 +153,11 @@
 
   <!--BUTTON XÁC NHẬN ĐẶT HÀNG-->
   <ion-row>
-    <ion-col>
-      <ion-button [disabled]="checkoutForm.invalid || checkoutForm.pending" color="warning" expand="full" fill="solid"
+    <!-- <ion-col>
+      <ion-button [disabled]="orderForm.invalid || orderForm.pending" color="warning" expand="full" fill="solid"
         size="large" type="submit">Đặt Hàng
       </ion-button>
-    </ion-col>
+    </ion-col> -->
   </ion-row>
 
 </ion-content>
