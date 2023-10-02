@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
-import { CartItemModel } from 'src/app/models/cart-item-model';
 import { CartService } from 'src/app/services/cart.service';
 import { TitleService } from 'src/app/services/title.service';
 
