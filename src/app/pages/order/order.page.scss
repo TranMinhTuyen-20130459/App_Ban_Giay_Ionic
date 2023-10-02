@@ -1,0 +1,38 @@
+.error-message {
+  color: red;
+  /* Màu chữ là đỏ hoặc màu bạn muốn */
+  font-size: 14px;
+  /* Kích thước font */
+  margin-top: 5px;
+  /* Khoảng cách từ phần tử trước */
+}
+
+/* CSS cho cửa sổ thông báo thành công */
+.success-alert {
+  .alert-wrapper {
+    background-color: #4CAF50;
+    /* Màu nền */
+    color: #fff;
+    /* Màu chữ */
+  }
+
+  .alert-button {
+    color: #fff;
+    /* Màu nút */
+  }
+}
+
+/* CSS cho cửa sổ thông báo thất bại */
+.error-alert {
+  .alert-wrapper {
+    background-color: #f44336;
+    /* Màu nền */
+    color: #fff;
+    /* Màu chữ */
+  }
+
+  .alert-button {
+    color: #fff;
+    /* Màu nút */
+  }
+}

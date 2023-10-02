@@ -12,12 +12,16 @@ const routes: Routes = [
         loadChildren: () => import('../pages/home/home.module').then(m => m.HomePageModule)
       },
       {
-        path:"account",
+        path: "account",
         loadChildren: () => import('../pages/account/account.module').then(m => m.AccountPageModule)
       },
       {
         path: 'cart',
         loadChildren: () => import('../pages/cart/cart.module').then(m => m.CartPageModule)
+      },
+      {
+        path: 'search',
+        loadChildren: () => import('../pages/search/search.module').then(m => m.SearchPageModule)
       },
       {
         path: '',
