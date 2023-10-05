@@ -62,24 +62,25 @@ export class CartPage implements OnInit {
     await alert.present();
   }
 
+  // giảm số lượng của sản phẩm trong giỏ hàng
   decreaseQuantity(item_cart: any) {
-
     this.cartService.decreaseQuantity(item_cart);
-
   }
 
+  // tăng số lượng của sản phẩm trong giỏ hàng
   increaseQuantity(item_cart: any) {
-
     this.cartService.increaseQuantity(item_cart);
+  }
 
+  // chuyển đến trang Đặt Hàng
+  navigateToOrderPage() {
+    this.router.navigate(['/order']);
   }
 
   getTotalPriceInCart() {
     return this.cartService._totalPrice;
   }
 
-  navigateToOrderPage() {
-    this.router.navigate(['/order']);
-  }
+
 
 }
