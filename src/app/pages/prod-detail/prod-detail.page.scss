@@ -1,42 +1,62 @@
 div {
-    margin-top: 100px;
-    height: 22vh;
+  margin-top: 100px;
+  height: 22vh;
 
-    swiper-container {
-        swiper-slide {
-            height: 25vh;
+  swiper-container {
+    swiper-slide {
+      height: 25vh;
 
-            img {
-                width: 100%;
-                height: 90%;
-                border-radius: 5px;
-                box-shadow: -1px 11px 13px -6px rgb(87, 86, 86);
-            }
-        }
+      img {
+        width: 100%;
+        height: 90%;
+        border-radius: 5px;
+        box-shadow: -1px 11px 13px -6px rgb(87, 86, 86);
+      }
     }
+  }
 }
 
 ion-badge {
-    margin-right: 20px;
-    position: absolute;
-    right: 0;
-    top: 10px;
+  margin-right: 20px;
+  position: absolute;
+  right: 0;
+  top: 10px;
+}
+
+ion-icon[name="cart-outline"] {
+  color: rgba(231, 143, 78, 0.74);
+}
+
+ion-buttons[slot="end"]>ion-button.cart {
+  margin-right: 20px;
+}
+
+ion-buttons[slot="primary"] {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  ion-button {
+    flex: 1;
   }
-  
-  ion-icon[name="cart-outline"] {
-    color: rgba(231, 143, 78, 0.74);
+}
+
+ion-card-subtitle {
+
+  display: flex;
+
+  .rating {
+    margin: 0px 2% 0px 0px;
+    height: 30px;
   }
-  
-  ion-buttons[slot="end"] > ion-button.cart {
-    margin-right: 20px;
+
+  h6 {
+    margin: 10px 0px 0px 28%;
   }
-  
-  ion-buttons[slot="primary"] {
-    width:100%;
-    display: flex;
-    justify-content: space-between;
-  
-    ion-button {
-      flex: 1;
-    }
-  }
+}
+
+/* Điều chỉnh kiểu dáng của các ngôi sao đánh giá */
+.rating span {
+  font-size: 24px;
+  color: #ffcc00;
+}
