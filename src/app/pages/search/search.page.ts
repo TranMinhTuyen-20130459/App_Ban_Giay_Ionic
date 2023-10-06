@@ -16,6 +16,8 @@ export class SearchPage implements OnInit {
   showSkeleton: boolean = false;
   touched: boolean = false;
 
+  keyword = "";
+
   constructor(private productService: ProductService,
     private loadingController: LoadingController,
     private alertController: AlertController,
@@ -24,8 +26,16 @@ export class SearchPage implements OnInit {
   ngOnInit() {
   }
 
+  // xử lí sự kiện khi người dùng nhập từ khóa vào thanh tìm kiếm
+  onSearchInput(event: any) {
+    const value = event.target.value;
+    this.keyword = value; // Lưu giá trị tìm kiếm vào biến keyword
+  }
+
   search(ev: any): void {
     const keyword: string = ev.target.value;
+
+    this.keyword = keyword;
 
     // Kiểm tra xem từ khóa có giá trị không trước khi gửi yêu cầu
     if (keyword.trim() !== '') {
