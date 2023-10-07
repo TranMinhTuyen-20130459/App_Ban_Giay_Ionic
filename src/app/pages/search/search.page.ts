@@ -3,6 +3,7 @@ import { ProductService } from "../../services/product.service";
 import { ProductModel } from "../../models/product-model";
 import { AlertController, LoadingController } from '@ionic/angular';
 import { NetworkService } from 'src/app/services/network.service';
+import { SpeechRecognition } from "@capacitor-community/speech-recognition";
 
 @Component({
   selector: 'app-search',
@@ -12,16 +13,17 @@ import { NetworkService } from 'src/app/services/network.service';
 export class SearchPage implements OnInit {
 
   searchedProducts: ProductModel[] = [];
-
   showSkeleton: boolean = false;
   touched: boolean = false;
-
   keyword = "";
 
   constructor(private productService: ProductService,
     private loadingController: LoadingController,
     private alertController: AlertController,
-    private networkService: NetworkService) { }
+    private networkService: NetworkService) {
+    // yêu cầu quyền ghi giọng nói người dùng
+    SpeechRecognition.requestPermissions();
+  }
 
   ngOnInit() {
   }
@@ -30,6 +32,31 @@ export class SearchPage implements OnInit {
   onSearchInput(event: any) {
     const value = event.target.value;
     this.keyword = value; // Lưu giá trị tìm kiếm vào biến keyword
+  }
+
+  // bắt đầu ghi lại giọng nói của người dùng 
+  async startRecognition() {
+
+    const available = await SpeechRecognition.available();
+
+    if (available) {
+      SpeechRecognition.start({
+        language: "en-US",
+        prompt: "Thử nói gì đó",
+        partialResults: true,
+        popup: true,
+      });
+
+      SpeechRecognition.addListener("partialResults", (data: any) => {
+        console.log("partialResults was fired", data.matches);
+      });
+    }
+
+  }
+
+  //xử lí sự kiện khi người dùng chọn tìm kiếm bằng microphone
+  searchUseMicrophone() {
+    console.log('Đây là hàm xử lí sự kiện khi người dùng chọn tìm kiếm bằng microphone');
   }
 
   search(ev: any): void {
