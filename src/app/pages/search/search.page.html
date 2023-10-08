@@ -6,9 +6,9 @@
     <ion-title>Tìm kiếm</ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar (ionInput)="onSearchInput($event)" (ionChange)="search($event)" debounce="500" color="light"
-      placeholder="Nhập tên sản phẩm..."></ion-searchbar>
-    <div class="voice-chat-button" [class.hidden]="keyword.length>0">
+    <ion-searchbar [(ngModel)]="keywordFromSpeech" (ionInput)="onSearchInput($event)" (ionChange)="search($event)"
+      debounce="500" color="light" placeholder="Nhập tên sản phẩm..."></ion-searchbar>
+    <div class="voice-chat-button" [class.hidden]="keywordFromKeyboard.length>0 || keywordFromSpeech.length>0">
       <ion-icon name="mic" (click)="startRecognition()"></ion-icon>
     </div>
   </ion-toolbar>

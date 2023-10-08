@@ -10,12 +10,14 @@ import { SpeechRecognition } from "@capacitor-community/speech-recognition";
   templateUrl: './search.page.html',
   styleUrls: ['./search.page.scss'],
 })
+
 export class SearchPage implements OnInit {
 
   searchedProducts: ProductModel[] = [];
   showSkeleton: boolean = false;
   touched: boolean = false;
-  keyword = "";
+  keywordFromKeyboard = "";
+  keywordFromSpeech = "";
 
   constructor(private productService: ProductService,
     private loadingController: LoadingController,
@@ -31,38 +33,43 @@ export class SearchPage implements OnInit {
   // xử lí sự kiện khi người dùng nhập từ khóa vào thanh tìm kiếm
   onSearchInput(event: any) {
     const value = event.target.value;
-    this.keyword = value; // Lưu giá trị tìm kiếm vào biến keyword
+    this.keywordFromKeyboard = value; // Lưu giá trị tìm kiếm vào biến keyword
+
+    console.log('Keyword From Keyboard: ' + this.keywordFromKeyboard);
+    console.log('Keyword From Speech: ' + this.keywordFromSpeech);
   }
 
   // bắt đầu ghi lại giọng nói của người dùng 
   async startRecognition() {
 
     const available = await SpeechRecognition.available();
+    console.log('Available: ');
+    console.log(available);
 
     if (available) {
-      SpeechRecognition.start({
-        language: "en-US",
+
+      const result = await SpeechRecognition.start({
+        language: "en-UK",
+        maxResults: 2,
         prompt: "Thử nói gì đó",
         partialResults: true,
         popup: true,
       });
 
-      SpeechRecognition.addListener("partialResults", (data: any) => {
-        console.log("partialResults was fired", data.matches);
-      });
+      if (result.matches && result.matches.length > 0) {
+        this.keywordFromSpeech = result.matches[0];
+        console.log('Keyword From Speech: ', this.keywordFromSpeech);
+
+        // Tìm kiếm sản phẩm sau khi có giá trị từ giọng nói
+        this.search({ target: { value: this.keywordFromSpeech } });
+      }
     }
-
-  }
-
-  //xử lí sự kiện khi người dùng chọn tìm kiếm bằng microphone
-  searchUseMicrophone() {
-    console.log('Đây là hàm xử lí sự kiện khi người dùng chọn tìm kiếm bằng microphone');
   }
 
   search(ev: any): void {
     const keyword: string = ev.target.value;
 
-    this.keyword = keyword;
+    this.keywordFromKeyboard = keyword;
 
     // Kiểm tra xem từ khóa có giá trị không trước khi gửi yêu cầu
     if (keyword.trim() !== '') {
