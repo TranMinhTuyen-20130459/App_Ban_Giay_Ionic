@@ -12,7 +12,7 @@ import { NetworkService } from 'src/app/services/network.service';
 })
 export class HomePage implements OnInit {
 
-    useLoadMoreDataNike: String = "NIKE_MALE";
+    useLoadMoreData: String = "";
     listArrayOfProducts: ProductModel[] = [];
     displayedList: ProductModel[] = [];
 
@@ -59,7 +59,7 @@ export class HomePage implements OnInit {
     }
 
     async loadMoreData(ev: any) {
-        switch (this.useLoadMoreDataNike) {
+        switch (this.useLoadMoreData) {
             case "NIKE_MALE":
                 this.loadMoreNikeMale(ev);
                 break;

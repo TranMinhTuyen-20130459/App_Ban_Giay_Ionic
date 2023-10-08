@@ -31,7 +31,7 @@ export class TabsPage {
       const homePageReference = this.homeRefService.getHomePageReference();
       if (homePageReference) {
         homePageReference.loadDataNikeMale();
-        homePageReference.useLoadMoreDataNike = "NIKE_MALE";
+        homePageReference.useLoadMoreData = "NIKE_MALE";
       }
 
       this.menuCtrl.enable(true, 'first'); // Hiển thị menu "Danh Mục"
@@ -47,7 +47,7 @@ export class TabsPage {
       const homePageReference = this.homeRefService.getHomePageReference();
       if (homePageReference) {
         homePageReference.loadDataNikeFemale();
-        homePageReference.useLoadMoreDataNike = "NIKE_FEMALE";
+        homePageReference.useLoadMoreData = "NIKE_FEMALE";
       }
 
       this.menuCtrl.enable(true, 'first'); // Hiển thị menu "Danh Mục"
@@ -64,7 +64,7 @@ export class TabsPage {
       const homePageReference = this.homeRefService.getHomePageReference();
       if (homePageReference) {
         homePageReference.loadDataAdidasMale();
-        homePageReference.useLoadMoreDataNike = "ADIDAS_MALE";
+        homePageReference.useLoadMoreData = "ADIDAS_MALE";
       }
 
       this.menuCtrl.enable(true, 'first'); // Hiển thị menu "Danh Mục"
@@ -80,7 +80,7 @@ export class TabsPage {
       const homePageReference = this.homeRefService.getHomePageReference();
       if (homePageReference) {
         homePageReference.loadDataAdidasFemale();
-        homePageReference.useLoadMoreDataNike = "ADIDAS_FEMALE";
+        homePageReference.useLoadMoreData = "ADIDAS_FEMALE";
       }
 
       this.menuCtrl.enable(true, 'first'); // Hiển thị menu "Danh Mục"
@@ -97,7 +97,7 @@ export class TabsPage {
       const homePageReference = this.homeRefService.getHomePageReference();
       if (homePageReference) {
         homePageReference.loadDataJordanMale();
-        homePageReference.useLoadMoreDataNike = "JORDAN_MALE";
+        homePageReference.useLoadMoreData = "JORDAN_MALE";
       }
 
       this.menuCtrl.enable(true, 'first'); // Hiển thị menu "Danh Mục"
@@ -113,7 +113,7 @@ export class TabsPage {
       const homePageReference = this.homeRefService.getHomePageReference();
       if (homePageReference) {
         homePageReference.loadDataJordanFemale();
-        homePageReference.useLoadMoreDataNike = "JORDAN_FEMALE";
+        homePageReference.useLoadMoreData = "JORDAN_FEMALE";
       }
 
       this.menuCtrl.enable(true, 'first'); // Hiển thị menu "Danh Mục"
