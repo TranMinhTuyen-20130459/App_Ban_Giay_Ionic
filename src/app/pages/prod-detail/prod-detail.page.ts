@@ -7,13 +7,14 @@ import { ProductDetailModel, SizeModel } from 'src/app/models/prod-detail-model'
 import { CartService } from 'src/app/services/cart.service';
 import { ToastController } from '@ionic/angular';
 import { NetworkService } from 'src/app/services/network.service';
+import { HeaderProdDetailComponent } from 'src/app/components/header-prod-detail/header-prod-detail.component';
 
 @Component({
   selector: 'app-prod-detail',
   templateUrl: './prod-detail.page.html',
   styleUrls: ['./prod-detail.page.scss'],
   standalone: true,
-  imports: [CommonModule, HeaderComponent],
+  imports: [CommonModule, HeaderProdDetailComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProdDetailPage implements OnInit {
