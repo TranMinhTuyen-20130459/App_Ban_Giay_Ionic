@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import { CartItemModel } from '../models/cart-item-model';
 import { ProductDetailModel, SizeModel } from '../models/prod-detail-model';
 import { BehaviorSubject } from 'rxjs';
+import { AlertController } from '@ionic/angular';
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class CartService {
+
+    constructor(private alertController: AlertController) {
+    }
 
     public _cartItems: CartItemModel[] = JSON.parse(localStorage.getItem("carts") || '[]');
 
@@ -111,7 +115,7 @@ export class CartService {
                 existingCartItem.quantity -= 1;
             } else {
                 // Nếu quantity là 1 hoặc ít hơn, bạn có thể xóa mục này khỏi giỏ hàng
-                this.removeItemFromCart(existingCartItem);
+                this.openConfirmDialogRemoveItemCart(item_cart);
             }
 
             // Lưu danh sách sản phẩm đã cập nhật vào localStorage
@@ -141,6 +145,36 @@ export class CartService {
             // Cập nhật BehaviorSubject để thông báo sự thay đổi trong giỏ hàng
             this._cartItemsSubject.next(this._cartItems);
         }
+    }
+
+    // cửa sổ xác nhận xóa sản phẩm khỏi giỏ hàng
+    async openConfirmDialogRemoveItemCart(item_cart: any) {
+
+        const alert = await this.alertController.create({
+            header: '',
+            message: 'Xóa sản phẩm khỏi giỏ hàng?',
+            buttons: [
+                {
+                    text: 'Hủy',
+                    role: 'cancel',
+                    cssClass: 'secondary',
+                    handler: () => {
+                        // Xử lý khi người dùng hủy bỏ
+                        console.log('Hủy xóa sản phẩm khỏi giỏ hàng');
+                    }
+                },
+                {
+                    text: 'Xác nhận',
+                    handler: () => {
+                        // Xử lý khi người dùng xác nhận
+                        console.log('Xóa sản phẩm khỏi giỏ hàng');
+                        this.removeItemFromCart(item_cart);
+                    }
+                }
+            ]
+        });
+
+        await alert.present();
     }
 
 
