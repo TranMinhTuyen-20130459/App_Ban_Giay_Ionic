@@ -1,8 +1,8 @@
-import { HomePage } from './../pages/home/home.page';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { HomeReferenceService } from '../services/home-reference.service';
 import { MenuController } from '@ionic/angular';
+import { HomeReferenceService } from '../services/home-reference.service';
+import { UtilService } from '../services/utils.service';
 
 @Component({
   selector: 'app-tabs',
@@ -17,7 +17,8 @@ export class TabsPage {
 
   constructor(private router: Router,
     private homeRefService: HomeReferenceService,
-    private menuCtrl: MenuController) { }
+    private menuCtrl: MenuController,
+    private utilsService: UtilService) { }
 
   // NIKE
   switchToNikeMaleData() {
@@ -120,4 +121,11 @@ export class TabsPage {
     });
   }
 
+  clickMenu_GIOI_THIEU() {
+    this.utilsService.displayFeatureUnderDevelopmentAlert();
+  }
+
+  clickMenu_LIEN_HE() {
+    this.utilsService.displayFeatureUnderDevelopmentAlert();
+  }
 }

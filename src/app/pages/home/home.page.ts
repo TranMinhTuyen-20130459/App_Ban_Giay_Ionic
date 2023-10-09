@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController, ToastController } from "@ionic/angular";
+import { LoadingController, ToastController } from "@ionic/angular";
+import { NetworkService } from 'src/app/services/network.service';
+import { UtilService } from 'src/app/services/utils.service';
 import { ProductModel } from "../../models/product-model";
 import { ProductService } from "../../services/product.service";
 import { HomeReferenceService } from './../../services/home-reference.service';
-import { NetworkService } from 'src/app/services/network.service';
 
 @Component({
     selector: 'app-home',
@@ -22,7 +23,8 @@ export class HomePage implements OnInit {
         private loadingController: LoadingController,
         private toastController: ToastController,
         private homeRefService: HomeReferenceService,
-        private networkService: NetworkService
+        private networkService: NetworkService,
+        private utilsService: UtilService
     ) { }
 
     async ngOnInit() {
@@ -527,4 +529,13 @@ export class HomePage implements OnInit {
         })
 
     }
+
+    clickButtonSearch() {
+        this.utilsService.displayFeatureUnderDevelopmentAlert();
+    }
+
+    clickButtonFilter() {
+        this.utilsService.displayFeatureUnderDevelopmentAlert();
+    }
+
 }
