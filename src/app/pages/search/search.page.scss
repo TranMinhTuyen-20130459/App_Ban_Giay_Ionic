@@ -22,3 +22,21 @@
     align-items: flex-start;
     margin-left: 1.4rem;
 }
+
+// Điều chỉnh vị trí và kích thước của biểu tượng voice chat
+.voice-chat-button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    ion-icon {
+        font-size: 24px;
+        color: #007aff;
+    }
+}
+
+.hidden {
+    display: none;
+    /* Ẩn phần tử */
+}

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController, ToastController } from "@ionic/angular";
+import { LoadingController, ToastController } from "@ionic/angular";
+import { NetworkService } from 'src/app/services/network.service';
+import { UtilService } from 'src/app/services/utils.service';
 import { ProductModel } from "../../models/product-model";
 import { ProductService } from "../../services/product.service";
 import { HomeReferenceService } from './../../services/home-reference.service';
-import { NetworkService } from 'src/app/services/network.service';
 
 @Component({
     selector: 'app-home',
@@ -12,7 +13,7 @@ import { NetworkService } from 'src/app/services/network.service';
 })
 export class HomePage implements OnInit {
 
-    useLoadMoreDataNike: String = "NIKE_MALE";
+    useLoadMoreData: String = "";
     listArrayOfProducts: ProductModel[] = [];
     displayedList: ProductModel[] = [];
 
@@ -22,7 +23,8 @@ export class HomePage implements OnInit {
         private loadingController: LoadingController,
         private toastController: ToastController,
         private homeRefService: HomeReferenceService,
-        private networkService: NetworkService
+        private networkService: NetworkService,
+        private utilsService: UtilService
     ) { }
 
     async ngOnInit() {
@@ -59,7 +61,7 @@ export class HomePage implements OnInit {
     }
 
     async loadMoreData(ev: any) {
-        switch (this.useLoadMoreDataNike) {
+        switch (this.useLoadMoreData) {
             case "NIKE_MALE":
                 this.loadMoreNikeMale(ev);
                 break;
@@ -527,4 +529,13 @@ export class HomePage implements OnInit {
         })
 
     }
+
+    clickButtonSearch() {
+        this.utilsService.displayFeatureUnderDevelopmentAlert();
+    }
+
+    clickButtonFilter() {
+        this.utilsService.displayFeatureUnderDevelopmentAlert();
+    }
+
 }

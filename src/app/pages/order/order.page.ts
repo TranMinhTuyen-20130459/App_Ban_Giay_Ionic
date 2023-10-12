@@ -55,7 +55,7 @@ export class OrderPage implements OnInit {
       ]),
       email: new FormControl('', [
         Validators.required,
-        Validators.email,
+        Validators.email, // Xác thực email do user nhập vào đúng với định dạng
       ]),
       address: new FormControl('', [Validators.required]),
       province: new FormControl('', [Validators.required]),
@@ -115,6 +115,7 @@ export class OrderPage implements OnInit {
 
   }
 
+  // gọi phương thức CreateOrder() của OrderService 
   createOrder(): void {
 
     if (this.orderForm.valid) {
@@ -204,7 +205,7 @@ export class OrderPage implements OnInit {
   async showSuccessAlert(): Promise<void> {
     const alert = await this.alertController.create({
       header: 'Thành Công',
-      message: 'Đã thêm đơn hàng thành công!',
+      message: 'Đặt hàng Thành Công ^.^',
       buttons: [{
 
         text: 'OK',
@@ -238,7 +239,7 @@ export class OrderPage implements OnInit {
   async showErrorAlert(): Promise<void> {
     const alert = await this.alertController.create({
       header: 'Thất Bại',
-      message: 'Thêm đơn hàng thất bại. Vui lòng thử lại sau.',
+      message: 'Đặt hàng thất bại. Vui lòng thử lại sau.',
       buttons: ['OK'],
       cssClass: 'error-alert', // Thêm một lớp CSS tùy chỉnh nếu cần thiết
       backdropDismiss: false // Ngăn người dùng đóng cửa sổ bằng cách nhấp vào nền
